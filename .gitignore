@@ -1,0 +1,14 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Build results
+[Bb]in/
+[Bb]in-[Oo]bj/
+
+# Visual Studio 2017/2019 cache/options directory
+.vs/
+
+*.sln
