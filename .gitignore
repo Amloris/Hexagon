@@ -11,4 +11,5 @@
 # Visual Studio 2017/2019 cache/options directory
 .vs/
 
-*.sln
+# Files 
+*.vxproj.user
