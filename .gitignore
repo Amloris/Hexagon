@@ -12,4 +12,7 @@
 .vs/
 
 # Files 
-*.vxproj.user
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.sln
