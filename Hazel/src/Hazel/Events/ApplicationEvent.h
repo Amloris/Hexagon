@@ -37,7 +37,7 @@ namespace Hazel
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "WindowCloseEvent:";
+			ss << "WindowCloseEvent";
 			return ss.str();
 		}
 
