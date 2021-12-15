@@ -1,5 +1,8 @@
 #include "hzpch.h"
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "WindowsWindow.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
@@ -43,7 +46,7 @@ namespace Hazel
 		{
 			// Todo: glfwTerminate on system shutdown
 			int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
+			HZ_CORE_ASSERT(success, "Failed to initialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -52,6 +55,8 @@ namespace Hazel
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		HZ_CORE_ASSERT(status, "Failder to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
