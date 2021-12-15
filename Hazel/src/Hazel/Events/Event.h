@@ -50,8 +50,12 @@ namespace Hazel {
 		{
 			return GetCategoryFlags() & category;
 		}
+
+		bool& Handled() { return m_Handled; }
+
 	protected:
-		bool m_Handled = false;
+		bool m_Handled = false;       //Todo: Make a function to mark things as "Handled"
+
 	};
 
 	class EventDispatcher
