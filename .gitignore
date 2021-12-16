@@ -12,6 +12,9 @@
 # Visual Studio 2017/2019 cache/options directory
 .vs/
 
+#ImGui
+imgui.ini
+
 # Files 
 *.vcxproj
 *.vcxproj.user
