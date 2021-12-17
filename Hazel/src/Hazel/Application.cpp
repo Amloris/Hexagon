@@ -5,6 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Input.h"
+
 namespace Hazel {
 
 
@@ -64,6 +66,16 @@ namespace Hazel {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+
+			auto [x, y] = Input::GetMousePosition();
+			HZ_CORE_TRACE("{0}, {1}", x, y);
+
+			bool state = Input::IsMouseButtonPressed(0);
+			state == true ? HZ_CORE_TRACE("Mouse Button 1: (Pressed)") : HZ_CORE_TRACE("Mouse Button 1: (Not Pressed)");
+
+			bool spacePressed = Input::IsKeyPressed(32);
+			spacePressed == true ? HZ_CORE_TRACE("Spacebar: (Pressed)") : HZ_CORE_TRACE("Spacebar: (Not Pressed)");
 
 			m_Window->OnUpdate();
 		}
