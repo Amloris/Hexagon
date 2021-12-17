@@ -73,7 +73,6 @@ namespace Hazel
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), 
 		                        app.GetWindow().GetHeight());
-		HZ_CORE_INFO("ImGui: OnUpdate {0}, {1}", app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
 		float time = (float)glfwGetTime();
 		io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
@@ -184,8 +183,6 @@ namespace Hazel
 		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		HZ_CORE_INFO("ImGui: OnWindowResizeEvent {0}, {1}", e.GetWidth(), e.GetHeight());
 
 		return false;
 	}
