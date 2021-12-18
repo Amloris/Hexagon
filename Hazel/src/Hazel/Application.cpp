@@ -68,6 +68,7 @@ namespace Hazel {
 				layer->OnUpdate();
 
 
+			/*
 			auto [x, y] = Input::GetMousePosition();
 			HZ_CORE_TRACE("{0}, {1}", x, y);
 
@@ -76,6 +77,7 @@ namespace Hazel {
 
 			bool spacePressed = Input::IsKeyPressed(32);
 			spacePressed == true ? HZ_CORE_TRACE("Spacebar: (Pressed)") : HZ_CORE_TRACE("Spacebar: (Not Pressed)");
+			*/
 
 			m_Window->OnUpdate();
 		}
