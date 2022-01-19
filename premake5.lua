@@ -71,7 +71,8 @@ project "Hazel"
 		{
 			"HZ_PLATFORM_WINDOWS",
 			"HZ_BUILD_DLL",
-			--"GLFW_INCLUDE_NONE"
+			--"GLFW_INCLUDE_NONE",
+			"IMGUI_API=__declspec(dllexport)"
 		}
 
 		postbuildcommands
@@ -129,6 +130,7 @@ project "Sandbox"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
+			"IMGUI_API=__declspec(dllimport)",
 		}
 
 	filter "configurations:Debug"
