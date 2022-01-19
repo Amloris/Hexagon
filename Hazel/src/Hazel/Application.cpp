@@ -62,7 +62,7 @@ namespace Hazel {
 		while (m_Running)
 		{
 
-			glClearColor(0.1875, .0391, .1406, 0.8);
+			glClearColor(0.1875f, 0.0391f, 0.1406f, 0.8f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)

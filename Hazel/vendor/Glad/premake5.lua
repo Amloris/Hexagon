@@ -21,12 +21,10 @@ project "Glad"
 	filter "system:windows"
 		systemversion "latest"
 
-	filter {"configurations:Debug"}
+	filter "configurations:Debug"
 		runtime "Debug"
-		buildoptions "/MDd"
 		symbols "on"
 
-	filter {"configurations:Release"}
+	filter "configurations:Release"
 		runtime "Release"
-		buildoptions "/MD"
-		symbols "on"
+		optimize "on"
