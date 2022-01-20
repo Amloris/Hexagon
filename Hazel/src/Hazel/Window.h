@@ -4,7 +4,6 @@
 
 #include "Hazel/Core.h"
 #include "Hazel/Events/Event.h"
-#include "Hazel/Log.h"
 
 namespace Hazel
 {

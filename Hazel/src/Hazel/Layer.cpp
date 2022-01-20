@@ -9,4 +9,9 @@ namespace Hazel
 	{
 	}
 
+	Layer::~Layer()
+	{
+
+	}
+
 }

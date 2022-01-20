@@ -1,9 +1,9 @@
 #include "hzpch.h"
 
+#include <glad/glad.h>
+
 #include "Application.h"
 #include "Hazel/Log.h"
-
-#include <GLFW/glfw3.h>
 
 #include "Input.h"
 
@@ -58,10 +58,8 @@ namespace Hazel {
 
 	void Application::Run()
 	{
-
 		while (m_Running)
 		{
-
 			glClearColor(0.1875f, 0.0391f, 0.1406f, 0.8f);
 			glClear(GL_COLOR_BUFFER_BIT);
 

@@ -38,12 +38,26 @@ public:
 
 };
 
+class TestLayer : public Hazel::Layer
+{
+public:
+	TestLayer()
+		: Layer("Test") {}
+
+	virtual void OnImguiRender() override {
+		ImGui::Begin("2 Weeks");
+		ImGui::Text("Blues Bad");
+		ImGui::End();
+	}
+};
+
 class Sandbox : public Hazel::Application
 {
 public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer);
+		PushLayer(new TestLayer);
 	}
 
 	~Sandbox()

@@ -76,7 +76,7 @@ project "Hazel"
 		{
 			"HZ_PLATFORM_WINDOWS",
 			"HZ_BUILD_DLL",
-			--"GLFW_INCLUDE_NONE",
+			"GLFW_INCLUDE_NONE",
 		}
 
 	filter "configurations:Debug"
@@ -107,7 +107,8 @@ project "Sandbox"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"imgui.ini"
 	}
 
 	includedirs
@@ -129,7 +130,6 @@ project "Sandbox"
 		defines
 		{
 			"HZ_PLATFORM_WINDOWS",
-			--"IMGUI_API=__declspec(dllimport)",
 		}
 
 	filter "configurations:Debug"
