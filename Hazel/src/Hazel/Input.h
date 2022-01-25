@@ -2,12 +2,12 @@
 
 #include "Hazel/Core.h"
 
-namespace Hazel
+namespace Hexagon
 {
 
 
 
-	class HAZEL_API Input
+	class HEXAGON_API Input
 	{
 	public:
 		static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }

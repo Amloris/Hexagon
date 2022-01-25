@@ -4,7 +4,7 @@
 
 struct GLFWwindow;
 
-namespace Hazel {
+namespace Hexagon {
 
 	class OpenGLContext : public GraphicsContext {
 	public:

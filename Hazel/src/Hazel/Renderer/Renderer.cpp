@@ -1,8 +1,8 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "Renderer.h"
 
-namespace Hazel {
+namespace Hexagon {
 
 	RendererAPI Renderer::s_RendererAPI = RendererAPI::OpenGL;  //Hardcoded for OpenGL.  It is the only supported API currently.
 

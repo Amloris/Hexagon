@@ -1,8 +1,8 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "LayerStack.h"
 
-namespace Hazel
+namespace Hexagon
 {
 
 	LayerStack::~LayerStack()

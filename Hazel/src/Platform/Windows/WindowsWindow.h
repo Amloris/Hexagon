@@ -6,7 +6,7 @@
 #include "Hazel/Renderer/GraphicsContext.h"
 
 
-namespace Hazel
+namespace Hexagon
 {
 
 	class WindowsWindow : public Window

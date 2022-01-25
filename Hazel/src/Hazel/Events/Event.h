@@ -5,7 +5,7 @@
 #include <string>
 #include <functional>
 
-namespace Hazel {
+namespace Hexagon {
 
 	// Events in Hazel are currently blocking, meaning when an event occurs it
 	// immediately gets dispatched and must be dealt with right then and there.
@@ -37,7 +37,7 @@ namespace Hazel {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class HAZEL_API Event
+	class HEXAGON_API Event
 	{
 		friend class EventDispatcher;
 	public:

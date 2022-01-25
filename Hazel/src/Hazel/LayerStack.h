@@ -5,9 +5,9 @@
 
 #include <vector>
 
-namespace Hazel
+namespace Hexagon
 {
-	class HAZEL_API LayerStack
+	class HEXAGON_API LayerStack
 	{
 	public:
 		LayerStack() = default;

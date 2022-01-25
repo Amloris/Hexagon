@@ -1,4 +1,4 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include <glad/glad.h>
 
@@ -7,7 +7,7 @@
 
 #include "Input.h"
 
-namespace Hazel {
+namespace Hexagon {
 
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -16,7 +16,7 @@ namespace Hazel {
 
 	Application::Application()
 	{
-		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
+		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -99,7 +99,7 @@ namespace Hazel {
 
 	void Application::OnEvent(Event& e)
 	{
-		//HZ_CORE_TRACE("{0}", e);  //Log all events
+		//HX_CORE_TRACE("{0}", e);  //Log all events
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
@@ -139,13 +139,13 @@ namespace Hazel {
 
 			/*
 			auto [x, y] = Input::GetMousePosition();
-			HZ_CORE_TRACE("{0}, {1}", x, y);
+			HX_CORE_TRACE("{0}, {1}", x, y);
 
 			bool state = Input::IsMouseButtonPressed(0);
-			state == true ? HZ_CORE_TRACE("Mouse Button 1: (Pressed)") : HZ_CORE_TRACE("Mouse Button 1: (Not Pressed)");
+			state == true ? HX_CORE_TRACE("Mouse Button 1: (Pressed)") : HX_CORE_TRACE("Mouse Button 1: (Not Pressed)");
 
 			bool spacePressed = Input::IsKeyPressed(32);
-			spacePressed == true ? HZ_CORE_TRACE("Spacebar: (Pressed)") : HZ_CORE_TRACE("Spacebar: (Not Pressed)");
+			spacePressed == true ? HX_CORE_TRACE("Spacebar: (Pressed)") : HX_CORE_TRACE("Spacebar: (Not Pressed)");
 			*/
 		}
 	}

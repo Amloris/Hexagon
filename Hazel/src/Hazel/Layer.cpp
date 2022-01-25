@@ -1,7 +1,7 @@
-#include "hzpch.h"
+#include "hxpch.h"
 #include "Layer.h"
 
-namespace Hazel
+namespace Hexagon
 {
 
 	Layer::Layer(const std::string& debugName)

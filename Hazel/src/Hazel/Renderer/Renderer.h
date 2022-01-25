@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace Hazel {
+namespace Hexagon {
 
 	enum class RendererAPI
 	{

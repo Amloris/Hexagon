@@ -35,8 +35,8 @@ project "Hazel"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-obj/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "hzpch.h"
-	pchsource "Hazel/src/hzpch.cpp"
+	pchheader "hxpch.h"
+	pchsource "Hazel/src/hxpch.cpp"
 
 	files
 	{
@@ -74,23 +74,23 @@ project "Hazel"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL",
+			"HX_PLATFORM_WINDOWS",
+			"HX_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 		}
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines "HX_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines "HX_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "HZ_DIST"
+		defines "HX_DIST"
 		runtime "Release"
 		optimize "on"
 
@@ -129,20 +129,20 @@ project "Sandbox"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS",
+			"HX_PLATFORM_WINDOWS",
 		}
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines "HX_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines "HX_RELEASE"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "HZ_DIST"
+		defines "HX_DIST"
 		runtime "Release"
 		optimize "on"

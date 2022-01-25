@@ -1,8 +1,8 @@
-#include "Hazel.h"
+#include "Hexagon.h"
 
 #include "imgui/imgui.h"
 
-class ExampleLayer: public Hazel::Layer
+class ExampleLayer: public Hexagon::Layer
 {
 public:
 	ExampleLayer()
@@ -12,8 +12,8 @@ public:
 	{
 		//HZ_INFO("ExampleLayer::Update");
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
-			HZ_TRACE("Tab key is pressed! (Poll)");
+		if (Hexagon::Input::IsKeyPressed(HX_KEY_TAB))
+			HX_TRACE("Tab key is pressed! (Poll)");
 
 	}
 
@@ -23,22 +23,22 @@ public:
 		ImGui::End();
 	 }
 
-	void OnEvent(Hazel::Event& event) override
+	void OnEvent(Hexagon::Event& event) override
 	{
 		//HZ_TRACE("{0}", event);
 
-		if (event.GetEventType() == Hazel::EventType::KeyPressed)
+		if (event.GetEventType() == Hexagon::EventType::KeyPressed)
 		{
-			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
-			if (Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
-				HZ_TRACE("Tab key is pressed! (Event)");
-			HZ_INFO("Key Pressed: {0}", (char)e.GetKeyCode());
+			Hexagon::KeyPressedEvent& e = (Hexagon::KeyPressedEvent&)event;
+			if (Hexagon::Input::IsKeyPressed(HX_KEY_TAB))
+				HX_TRACE("Tab key is pressed! (Event)");
+			HX_INFO("Key Pressed: {0}", (char)e.GetKeyCode());
 		}
 	}
 
 };
 
-class TestLayer : public Hazel::Layer
+class TestLayer : public Hexagon::Layer
 {
 public:
 	TestLayer()
@@ -51,7 +51,7 @@ public:
 	}
 };
 
-class Sandbox : public Hazel::Application
+class Sandbox : public Hexagon::Application
 {
 public:
 	Sandbox()
@@ -68,7 +68,7 @@ public:
 };
 
 
-Hazel::Application* Hazel::CreateApplication()
+Hexagon::Application* Hexagon::CreateApplication()
 {
 	return new Sandbox();
 }

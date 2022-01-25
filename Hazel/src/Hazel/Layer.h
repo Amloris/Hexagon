@@ -5,9 +5,9 @@
 #include "Hazel/Core.h"
 #include "Hazel/Events/Event.h"
 
-namespace Hazel
+namespace Hexagon
 {
-	class HAZEL_API Layer
+	class HEXAGON_API Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");

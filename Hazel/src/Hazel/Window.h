@@ -1,11 +1,11 @@
 #pragma once
 
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "Hazel/Core.h"
 #include "Hazel/Events/Event.h"
 
-namespace Hazel
+namespace Hexagon
 {
 	struct WindowProps
 	{
@@ -20,7 +20,7 @@ namespace Hazel
 	};
 
 	// Interface representing a desktop system based on Window
-	class HAZEL_API Window
+	class HEXAGON_API Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

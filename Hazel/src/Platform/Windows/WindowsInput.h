@@ -2,7 +2,7 @@
 
 #include "Hazel/Input.h"
 
-namespace Hazel
+namespace Hexagon
 {
 	class WindowsInput : public Input
 	{

@@ -1,12 +1,12 @@
 // Wrapper for a logging library
 
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "Log.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace Hazel
+namespace Hexagon
 {
 
 	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;

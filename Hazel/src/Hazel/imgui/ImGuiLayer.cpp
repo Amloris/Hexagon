@@ -1,4 +1,4 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "ImGuiLayer.h"
 
@@ -12,7 +12,7 @@
 //#include <glad/glad.h>
 //#include <GLFW/glfw3.h>
 
-namespace Hazel
+namespace Hexagon
 {
 
 	ImGuiLayer::ImGuiLayer()

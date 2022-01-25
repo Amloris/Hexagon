@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Hazel {
+namespace Hexagon {
 
 	class Shader
 	{

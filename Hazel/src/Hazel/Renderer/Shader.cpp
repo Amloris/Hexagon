@@ -1,10 +1,10 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include <glad/glad.h>
 
 #include "Shader.h"
 
-namespace Hazel {
+namespace Hexagon {
 
 
 	Shader::Shader(const std::string& vertexSrc, const std::string& fragmentSrc)
@@ -39,9 +39,9 @@ namespace Hazel {
 			glDeleteShader(vertexShader);
 
 			// Use the infoLog as you see fit.
-			HZ_CORE_ERROR("Vertex shader compilation failure!");
-			HZ_CORE_ERROR("{0}", infoLog.data());
-			HZ_ASSERT(false, "Vertex shader compilation failure!");
+			HX_CORE_ERROR("Vertex shader compilation failure!");
+			HX_CORE_ERROR("{0}", infoLog.data());
+			HX_CORE_ASSERT(false, "Vertex shader compilation failure!");
 
 			// In this simple program, we'll just leave
 			return;
@@ -74,9 +74,9 @@ namespace Hazel {
 			glDeleteShader(vertexShader);
 
 			// Use the infoLog as you see fit.
-			HZ_CORE_ERROR("Fragment shader compilation failure!");
-			HZ_CORE_ERROR("{0}", infoLog.data());
-			HZ_ASSERT(false, "Fragment shader compilation failure!");
+			HX_CORE_ERROR("Fragment shader compilation failure!");
+			HX_CORE_ERROR("{0}", infoLog.data());
+			HX_CORE_ASSERT(false, "Fragment shader compilation failure!");
 
 			// In this simple program, we'll just leave
 			return;
@@ -114,9 +114,9 @@ namespace Hazel {
 			glDeleteShader(fragmentShader);
 
 			// Use the infoLog as you see fit.
-			HZ_CORE_ERROR("Shader linking failure!");
-			HZ_CORE_ERROR("{0}", infoLog.data());
-			HZ_ASSERT(false, "Shader linking failure!");
+			HX_CORE_ERROR("Shader linking failure!");
+			HX_CORE_ERROR("{0}", infoLog.data());
+			HX_CORE_ASSERT(false, "Shader linking failure!");
 
 			// In this simple program, we'll just leave
 			return;

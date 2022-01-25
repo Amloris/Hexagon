@@ -1,11 +1,11 @@
-#include "hzpch.h"
+#include "hxpch.h"
 
 #include "WindowsInput.h"
 
 #include "Hazel/Application.h"
 #include <GLFW/glfw3.h>
 
-namespace Hazel
+namespace Hexagon
 {
 
 	Input* Input::s_Instance = new WindowsInput();

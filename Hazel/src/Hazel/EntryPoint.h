@@ -1,17 +1,17 @@
 #pragma once
 
-#ifdef HZ_PLATFORM_WINDOWS
+#ifdef HX_PLATFORM_WINDOWS
 
-extern Hazel::Application* Hazel::CreateApplication();
+extern Hexagon::Application* Hexagon::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	Hazel::Log::Init();
-	HZ_CORE_WARN("Initialized Log!");                   //Equivalent to Hazel::Log::GetCoreLogger()->warn("Initialized Log!");
+	Hexagon::Log::Init();
+	HX_CORE_WARN("Initialized Log!");                   //Equivalent to Hexagon::Log::GetCoreLogger()->warn("Initialized Log!");
 	int a{ 5 };
-	HZ_INFO("Hello! Var={0}", a);                                  //Equivalent to Hazel::Log::GetClientLogger()->info("Hello!");
+	HX_INFO("Hello! Var={0}", a);                                  //Equivalent to Hexagon::Log::GetClientLogger()->info("Hello!");
 
-	auto app = Hazel::CreateApplication();
+	auto app = Hexagon::CreateApplication();
 	app->Run();
 	delete app;
 }

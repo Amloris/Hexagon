@@ -6,9 +6,9 @@
 #include "Hazel/Events/KeyEvent.h"
 #include "Hazel/Events/MouseEvent.h"
 
-namespace Hazel
+namespace Hexagon
 {
-	class HAZEL_API ImGuiLayer : public Layer
+	class HEXAGON_API ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

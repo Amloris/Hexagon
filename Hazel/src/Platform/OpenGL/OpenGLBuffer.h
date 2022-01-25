@@ -2,7 +2,7 @@
 
 #include "Hazel/Renderer/Buffer.h"
 
-namespace Hazel {
+namespace Hexagon {
 
 	class OpenGLVertexBuffer : public VertexBuffer 
 	{

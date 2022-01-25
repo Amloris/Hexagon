@@ -4,10 +4,10 @@
 
 #include "Event.h"
 
-namespace Hazel
+namespace Hexagon
 {
 
-	class HAZEL_API KeyEvent : public Event
+	class HEXAGON_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -20,7 +20,7 @@ namespace Hazel
 		int m_KeyCode;
 	};
 
-	class HAZEL_API	KeyPressedEvent : public KeyEvent
+	class HEXAGON_API	KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -46,7 +46,7 @@ namespace Hazel
 		int m_RepeatCount;
 	};
 
-	class HAZEL_API KeyReleasedEvent : public KeyEvent
+	class HEXAGON_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -62,7 +62,7 @@ namespace Hazel
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class HAZEL_API KeyTypedEvent : public KeyEvent
+	class HEXAGON_API KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

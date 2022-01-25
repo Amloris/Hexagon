@@ -4,9 +4,9 @@
 
 #include "Event.h"
 
-namespace Hazel
+namespace Hexagon
 {
-	class HAZEL_API	MouseMovedEvent : public Event
+	class HEXAGON_API	MouseMovedEvent : public Event
 	{
 	public:
 
@@ -31,7 +31,7 @@ namespace Hazel
 	};
 
 
-	class HAZEL_API MouseScrolledEvent : public Event
+	class HEXAGON_API MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -55,7 +55,7 @@ namespace Hazel
 	};
 
 
-	class HAZEL_API MouseButtonEvent : public Event
+	class HEXAGON_API MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -69,7 +69,7 @@ namespace Hazel
 	};
 
 
-	class HAZEL_API	MouseButtonPressedEvent : public MouseButtonEvent
+	class HEXAGON_API	MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -86,7 +86,7 @@ namespace Hazel
 	};
 
 
-	class HAZEL_API	MouseButtonReleasedEvent : public MouseButtonEvent
+	class HEXAGON_API	MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)
