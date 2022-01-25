@@ -3,14 +3,14 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Hazel/LayerStack.h"
-#include "Hazel/Events/Event.h"
-#include "Hazel/Events/ApplicationEvent.h"
+#include "Hexagon/LayerStack.h"
+#include "Hexagon/Events/Event.h"
+#include "Hexagon/Events/ApplicationEvent.h"
 
-#include "Hazel/ImGui/ImGuiLayer.h"
+#include "Hexagon/ImGui/ImGuiLayer.h"
 
-#include "Hazel/Renderer/Shader.h"
-#include "Hazel/Renderer/Buffer.h"
+#include "Hexagon/Renderer/Shader.h"
+#include "Hexagon/Renderer/Buffer.h"
 
 
 namespace Hexagon {

@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "Hazel/Core.h"
-#include "Hazel/Events/Event.h"
+#include "Hexagon/Core.h"
+#include "Hexagon/Events/Event.h"
 
 namespace Hexagon
 {

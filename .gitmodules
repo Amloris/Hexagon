@@ -1,12 +1,12 @@
-[submodule "Hazel/vendor/GLFW"]
-	path = Hazel/vendor/GLFW
+[submodule "Hexagon/vendor/GLFW"]
+	path = Hexagon/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
-[submodule "Hazel/vendor/glm"]
-	path = Hazel/vendor/glm
+[submodule "Hexagon/vendor/glm"]
+	path = Hexagon/vendor/glm
 	url = https://github.com/g-truc/glm.git
-[submodule "Hazel/vendor/imgui"]
-	path = Hazel/vendor/imgui
+[submodule "Hexagon/vendor/imgui"]
+	path = Hexagon/vendor/imgui
 	url = https://github.com/TheCherno/imgui.git
-[submodule "Hazel/vendor/spdlog"]
-	path = Hazel/vendor/spdlog
+[submodule "Hexagon/vendor/spdlog"]
+	path = Hexagon/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git

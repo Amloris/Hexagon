@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Hazel/Layer.h"
+#include "Hexagon/Layer.h"
 
-#include "Hazel/Events/ApplicationEvent.h"
-#include "Hazel/Events/KeyEvent.h"
-#include "Hazel/Events/MouseEvent.h"
+#include "Hexagon/Events/ApplicationEvent.h"
+#include "Hexagon/Events/KeyEvent.h"
+#include "Hexagon/Events/MouseEvent.h"
 
 namespace Hexagon
 {

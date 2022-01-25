@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hazel/Renderer/Buffer.h"
+#include "Hexagon/Renderer/Buffer.h"
 
 namespace Hexagon {
 

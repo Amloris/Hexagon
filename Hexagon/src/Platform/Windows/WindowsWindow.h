@@ -2,8 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Hazel/Window.h"
-#include "Hazel/Renderer/GraphicsContext.h"
+#include "Hexagon/Window.h"
+#include "Hexagon/Renderer/GraphicsContext.h"
 
 
 namespace Hexagon

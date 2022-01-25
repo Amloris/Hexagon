@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Hazel/Log.h"
+#include "Hexagon/Log.h"
 
 #ifdef HX_PLATFORM_WINDOWS
 	#include <Windows.h>

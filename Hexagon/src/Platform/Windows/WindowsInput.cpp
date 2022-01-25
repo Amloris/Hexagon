@@ -2,7 +2,7 @@
 
 #include "WindowsInput.h"
 
-#include "Hazel/Application.h"
+#include "Hexagon/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Hexagon

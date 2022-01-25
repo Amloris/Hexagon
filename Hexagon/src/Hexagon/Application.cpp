@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 
 #include "Application.h"
-#include "Hazel/Log.h"
+#include "Hexagon/Log.h"
 
 #include "Input.h"
 

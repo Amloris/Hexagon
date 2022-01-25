@@ -1,4 +1,4 @@
-workspace "Hazel"
+workspace "Hexagon"
 	architecture "x64"
 	startproject "Sandbox"
 
@@ -13,20 +13,20 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to the root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"]  = "Hazel/vendor/GLFW/include"
-IncludeDir["Glad"]  = "Hazel/vendor/Glad/include"
-IncludeDir["ImGui"] = "Hazel/vendor/imgui"
-IncludeDir["glm"]   = "Hazel/vendor/glm/glm"
+IncludeDir["GLFW"]  = "Hexagon/vendor/GLFW/include"
+IncludeDir["Glad"]  = "Hexagon/vendor/Glad/include"
+IncludeDir["ImGui"] = "Hexagon/vendor/imgui"
+IncludeDir["glm"]   = "Hexagon/vendor/glm/glm"
 
 group "Dependencies"
-	include "Hazel/vendor/GLFW"  -- Adds the GLFW premake file so that we can have GLFW as a project
-	include "Hazel/vendor/Glad"
-	include "Hazel/vendor/imgui"
-	--include "Hazel/vendor/glm"
+	include "Hexagon/vendor/GLFW"  -- Adds the GLFW premake file so that we can have GLFW as a project
+	include "Hexagon/vendor/Glad"
+	include "Hexagon/vendor/imgui"
+	--include "Hexagon/vendor/glm"
 group ""
 
-project "Hazel"
-	location "Hazel"
+project "Hexagon"
+	location "Hexagon"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
@@ -36,7 +36,7 @@ project "Hazel"
 	objdir ("bin-obj/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "hxpch.h"
-	pchsource "Hazel/src/hxpch.cpp"
+	pchsource "Hexagon/src/hxpch.cpp"
 
 	files
 	{
@@ -113,15 +113,15 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Hazel/vendor/spdlog/include",
-		"Hazel/src",
+		"Hexagon/vendor/spdlog/include",
+		"Hexagon/src",
 		"%{IncludeDir.glm}",
-		"Hazel/vendor"   --Include Imgui
+		"Hexagon/vendor"   --Include Imgui
 	}
 
 	links
 	{
-		"Hazel"
+		"Hexagon"
 	}
 
 	filter "system:windows"

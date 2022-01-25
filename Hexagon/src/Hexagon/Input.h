@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hazel/Core.h"
+#include "Hexagon/Core.h"
 
 namespace Hexagon
 {

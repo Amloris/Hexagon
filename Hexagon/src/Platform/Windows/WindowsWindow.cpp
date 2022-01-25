@@ -2,9 +2,9 @@
 
 #include "WindowsWindow.h"
 
-#include "Hazel/Events/ApplicationEvent.h"
-#include "Hazel/Events/KeyEvent.h"
-#include "Hazel/Events/MouseEvent.h"
+#include "Hexagon/Events/ApplicationEvent.h"
+#include "Hexagon/Events/KeyEvent.h"
+#include "Hexagon/Events/MouseEvent.h"
 
 #include "Platform/OpenGL/OpenGLContext.h"
 
