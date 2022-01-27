@@ -14,6 +14,28 @@ namespace Hexagon {
 
 	Application* Application::s_Instance = nullptr;
 
+	//This will only live here temporarily!
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type) 
+		{
+			case Hexagon::ShaderDataType::Float:  return GL_FLOAT;
+			case Hexagon::ShaderDataType::Float2: return GL_FLOAT;
+			case Hexagon::ShaderDataType::Float3: return GL_FLOAT;
+			case Hexagon::ShaderDataType::Float4: return GL_FLOAT;
+			case Hexagon::ShaderDataType::Mat3:	  return GL_FLOAT;
+			case Hexagon::ShaderDataType::Mat4:	  return GL_FLOAT;
+			case Hexagon::ShaderDataType::Int:	  return GL_INT;
+			case Hexagon::ShaderDataType::Int2:	  return GL_INT;
+			case Hexagon::ShaderDataType::Int3:	  return GL_INT;
+			case Hexagon::ShaderDataType::Int4:	  return GL_INT;
+			case Hexagon::ShaderDataType::Bool:	  return GL_BOOL;
+		}
+
+		HX_CORE_ASSERT(false, "Unknown ShaderDataType:ShaderDataTypeToOpenGLBaseType!");
+		return 0;
+	};
+
 	Application::Application()
 	{
 		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -30,37 +52,50 @@ namespace Hexagon {
 		glBindVertexArray(m_VertexArray);
 		
 
-		float vertices[3 * 6] = {
+		float vertices[3 * 7] = {
 			// Positions         // Colors 
-			-0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,
-			 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
+			 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
 		};
 
 		// Vertex Buffer
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		//m_VertexBuffer->Bind();
 
-		// Position Attribute
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6*sizeof(float), (void*)0);
-		glEnableVertexAttribArray(0);
-		// Color Attribute
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
-		glEnableVertexAttribArray(1);
+		{
+			BufferLayout layout = {
+				{ ShaderDataType::Float3, "aPos"},
+				{ ShaderDataType::Float4, "aColor"}
+			};
+			m_VertexBuffer->SetLayout(layout);
+		}
+
+		uint32_t index = 0;
+		const auto& layout = m_VertexBuffer->GetLayout();
+		for (const auto& element : layout) 
+		{
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, 
+				element.GetComponentCount(), 
+				ShaderDataTypeToOpenGLBaseType(element.Type), 
+				element.Normalized ? GL_TRUE : GL_FALSE, 
+				layout.GetStride(),    //layout.GetStride(),
+				(const void*)element.Offset);
+			index++;
+		}
 
 		// Index buffer
-
-
 		uint32_t indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)/sizeof(uint32_t)));
 
 		// Shader
+		
 		std::string vertexSrc = R"(
 			#version 330 core
 
 			layout (location = 0) in vec3 aPos;
-			layout (location = 1) in vec3 aColor;
-			out vec3 ourColor;
+			layout (location = 1) in vec4 aColor;
+			out vec4 ourColor;
 			void main()
 			{
 			   gl_Position = vec4(aPos, 1.0);
@@ -72,10 +107,10 @@ namespace Hexagon {
 			#version 330 core
 
 			out vec4 FragColor;
-			in vec3 ourColor;
+			in vec4 ourColor;
 			void main()
 			{
-				FragColor = vec4(ourColor, 1.0f);
+				FragColor = vec4(ourColor);
 			}
 		)";
 ;
