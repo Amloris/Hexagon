@@ -1,11 +1,10 @@
 #include "hxpch.h"
 
-#include <glad/glad.h>
-
 #include "Application.h"
 #include "Hexagon/Log.h"
+#include "Renderer/Renderer.h"
 
-#include "Input.h"
+//#include "Input.h"
 
 namespace Hexagon {
 
@@ -161,19 +160,24 @@ namespace Hexagon {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1875f, 0.0391f, 0.1406f, 0.8f);
-			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_SquareShader->Bind();
-			m_SquareVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			// Render Commands
+			// -------------------------------------------------------------------------
+			const glm::vec4 colorUbuntuTerminal = { 0.1875f, 0.0391f, 0.1406f, 0.8f };
+			RenderCommand::SetClearColor(colorUbuntuTerminal);
+			RenderCommand::Clear();
 
-
-			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-
+			Renderer::BeginScene();
+			{
+				m_SquareShader->Bind();
+				Renderer::Submit(m_SquareVertexArray);
+				m_Shader->Bind();
+				Renderer::Submit(m_VertexArray);
+			}
+			Renderer::EndScene();
+	
+			// Layers
+			// -------------------------------------------------------------------------
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
@@ -183,6 +187,8 @@ namespace Hexagon {
 			}
 			m_ImGuiLayer->End();
 
+			// Windows
+			// -------------------------------------------------------------------------
 			m_Window->OnUpdate();
 
 

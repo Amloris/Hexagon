@@ -16,7 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"]  = "Hexagon/vendor/GLFW/include"
 IncludeDir["Glad"]  = "Hexagon/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hexagon/vendor/imgui"
-IncludeDir["glm"]   = "Hexagon/vendor/glm/glm"
+IncludeDir["glm"]   = "Hexagon/vendor/glm"
 
 group "Dependencies"
 	include "Hexagon/vendor/GLFW"  -- Adds the GLFW premake file so that we can have GLFW as a project

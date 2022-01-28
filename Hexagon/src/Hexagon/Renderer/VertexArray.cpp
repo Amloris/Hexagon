@@ -10,8 +10,8 @@ namespace Hexagon {
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::None: HX_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLVertexArray();
+			case RendererAPI::API::None: HX_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLVertexArray();
 		}
 
 		HX_CORE_ASSERT(false, "Invalid RenderAPI!")

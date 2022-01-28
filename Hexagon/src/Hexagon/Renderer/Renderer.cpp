@@ -4,6 +4,17 @@
 
 namespace Hexagon {
 
-	RendererAPI Renderer::s_RendererAPI = RendererAPI::OpenGL;  //Hardcoded for OpenGL.  It is the only supported API currently.
+	void Renderer::BeginScene()
+	{
+	}
 
+	void Renderer::EndScene()
+	{
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	{
+		vertexArray->Bind();
+		RenderCommand::DrawIndexed(vertexArray);
+	}
 }
