@@ -14,28 +14,6 @@ namespace Hexagon {
 
 	Application* Application::s_Instance = nullptr;
 
-	//This will only live here temporarily!
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type) 
-		{
-			case Hexagon::ShaderDataType::Float:  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float2: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float3: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float4: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Mat3:	  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Mat4:	  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Int:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int2:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int3:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int4:	  return GL_INT;
-			case Hexagon::ShaderDataType::Bool:	  return GL_BOOL;
-		}
-
-		HX_CORE_ASSERT(false, "Unknown ShaderDataType:ShaderDataTypeToOpenGLBaseType!");
-		return 0;
-	};
-
 	Application::Application()
 	{
 		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -48,48 +26,55 @@ namespace Hexagon {
 		PushOverlay(m_ImGuiLayer);
 
 		// Vertex Array
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-		
-
-		float vertices[3 * 7] = {
-			// Positions         // Colors 
-			-0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
-			 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,
-		};
+		m_VertexArray.reset(VertexArray::Create());
 
 		// Vertex Buffer
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		float vertices[3 * 7] = {
+			// Positions         // Colors 
+			-0.5f, -0.5f, 0.0f,  0.8f, 0.2f, 0.2f, 1.0f,
+			 0.5f, -0.5f, 0.0f,  0.2f, 0.8f, 0.3f, 1.0f,
+			 0.0f,  0.5f, 0.0f,  0.2f, 0.3f, 0.8f, 1.0f,
+		};
 
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "aPos"},
-				{ ShaderDataType::Float4, "aColor"}
-			};
-			m_VertexBuffer->SetLayout(layout);
-		}
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		uint32_t index = 0;
-		const auto& layout = m_VertexBuffer->GetLayout();
-		for (const auto& element : layout) 
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, 
-				element.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(element.Type), 
-				element.Normalized ? GL_TRUE : GL_FALSE, 
-				layout.GetStride(),    //layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "aPos"},
+			{ ShaderDataType::Float4, "aColor"}
+		};
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		// Index buffer
 		uint32_t indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)/sizeof(uint32_t)));
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices)/sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		//Testing Square
+		m_SquareVertexArray.reset(VertexArray::Create());
+		float squareVertices[3 * 4] = {
+			// Positions         // Colors 
+			-0.75f, -0.75f, 0.0f,  
+			 0.75f, -0.75f, 0.0f,  
+			 0.75f,  0.75f, 0.0f,  
+			-0.75f,  0.75f, 0.0f,
+		};
+
+		std::shared_ptr<VertexBuffer> SquareVertexBuffer;
+		SquareVertexBuffer.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		SquareVertexBuffer->SetLayout({
+			{ ShaderDataType::Float3, "aPos"},
+			});
+		m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> SquareIndexBuffer;
+		SquareIndexBuffer.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
 		// Shader
-		
 		std::string vertexSrc = R"(
 			#version 330 core
 
@@ -115,6 +100,36 @@ namespace Hexagon {
 		)";
 ;
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+
+		//Shader Square
+		std::string SquareVertexSrc = R"(
+			#version 330 core
+
+			layout (location = 0) in vec3 aPos;
+
+			out vec3 vPos;
+
+			void main()
+			{
+				vPos = aPos;
+				gl_Position = vec4(aPos, 1.0);
+			}
+		)";
+
+		std::string SquareFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec3 vPos;
+
+			void main()
+			{
+				color = vec4(vPos * 0.5 + 0.5, 1.0);
+			}
+		)";
+		;
+		m_SquareShader.reset(new Shader(SquareVertexSrc, SquareFragmentSrc));
 	}
 
 	Application::~Application()
@@ -154,10 +169,14 @@ namespace Hexagon {
 			glClearColor(0.1875f, 0.0391f, 0.1406f, 0.8f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_Shader->Bind();
+			m_SquareShader->Bind();
+			m_SquareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_Shader->Bind();
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 
 			for (Layer* layer : m_LayerStack)

@@ -9,8 +9,9 @@
 
 #include "Hexagon/ImGui/ImGuiLayer.h"
 
-#include "Hexagon/Renderer/Shader.h"
 #include "Hexagon/Renderer/Buffer.h"
+#include "Hexagon/Renderer/Shader.h"
+#include "Hexagon/Renderer/VertexArray.h"
 
 
 namespace Hexagon {
@@ -40,10 +41,14 @@ namespace Hexagon {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray;
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<Shader> m_Shader;
+
+		std::shared_ptr<VertexArray> m_SquareVertexArray;
+		std::shared_ptr<Shader> m_SquareShader;
+
+
 	private:
 		static Application* s_Instance;
 	};
