@@ -132,11 +132,6 @@ namespace Hexagon {
 		m_SquareShader.reset(new Shader(SquareVertexSrc, SquareFragmentSrc));
 	}
 
-	Application::~Application()
-	{
-
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);

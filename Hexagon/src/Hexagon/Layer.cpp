@@ -9,9 +9,4 @@ namespace Hexagon
 	{
 	}
 
-	Layer::~Layer()
-	{
-
-	}
-
 }

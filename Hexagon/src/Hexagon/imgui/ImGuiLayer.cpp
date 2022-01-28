@@ -21,11 +21,6 @@ namespace Hexagon
 		
 	}
 
-	ImGuiLayer::~ImGuiLayer()
-	{
-		
-	}
-
 	void ImGuiLayer::OnAttach()
 	{
 		// Setup ImGui Context
