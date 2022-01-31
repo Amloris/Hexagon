@@ -6,6 +6,7 @@
 
 //#include "Input.h"
 
+
 namespace Hexagon {
 
 
@@ -14,6 +15,7 @@ namespace Hexagon {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -79,10 +81,13 @@ namespace Hexagon {
 
 			layout (location = 0) in vec3 aPos;
 			layout (location = 1) in vec4 aColor;
+
+			uniform mat4 u_ViewProjection;
+
 			out vec4 ourColor;
 			void main()
 			{
-			   gl_Position = vec4(aPos, 1.0);
+			   gl_Position = u_ViewProjection * vec4(aPos, 1.0);
 			   ourColor = aColor;
 			}
 		)";
@@ -106,12 +111,14 @@ namespace Hexagon {
 
 			layout (location = 0) in vec3 aPos;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 vPos;
 
 			void main()
 			{
 				vPos = aPos;
-				gl_Position = vec4(aPos, 1.0);
+				gl_Position = u_ViewProjection * vec4(aPos, 1.0);
 			}
 		)";
 
@@ -160,19 +167,19 @@ namespace Hexagon {
 	{
 		while (m_Running)
 		{
-
 			// Render Commands
 			// -------------------------------------------------------------------------
 			const glm::vec4 colorUbuntuTerminal = { 0.1875f, 0.0391f, 0.1406f, 0.8f };
 			RenderCommand::SetClearColor(colorUbuntuTerminal);
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
+			Renderer::BeginScene(m_Camera);
 			{
-				m_SquareShader->Bind();
-				Renderer::Submit(m_SquareVertexArray);
-				m_Shader->Bind();
-				Renderer::Submit(m_VertexArray);
+				m_Camera.setRotation(45.0f);
+				m_Camera.setPosition({ 0.25f, 0.25f, 0.0f });
+
+				Renderer::Submit(m_SquareShader, m_SquareVertexArray);
+				Renderer::Submit(m_Shader, m_VertexArray);
 			}
 			Renderer::EndScene();
 	

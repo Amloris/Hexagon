@@ -30,5 +30,5 @@ namespace Hexagon
 	private:
 		static API s_API;
 	};
-
+	
 }

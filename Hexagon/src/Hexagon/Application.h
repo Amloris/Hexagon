@@ -12,6 +12,7 @@
 #include "Hexagon/Renderer/Buffer.h"
 #include "Hexagon/Renderer/Shader.h"
 #include "Hexagon/Renderer/VertexArray.h"
+#include "Hexagon/Renderer/OrthographicCamera.h"
 
 
 namespace Hexagon {
@@ -48,6 +49,7 @@ namespace Hexagon {
 		std::shared_ptr<VertexArray> m_SquareVertexArray;
 		std::shared_ptr<Shader> m_SquareShader;
 
+		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;

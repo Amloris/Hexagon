@@ -17,7 +17,6 @@ namespace Hexagon {
 			s_RendererAPI->Clear();
 		}
 
-
 		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
