@@ -6,6 +6,8 @@
 #include "Hexagon/Layer.h"
 #include "Hexagon/Log.h"
 
+#include "Hexagon/Core/Timestep.h"
+
 #include "Hexagon/Input.h"
 #include "Hexagon/KeyCodes.h"
 #include "Hexagon/MouseButtonCodes.h"

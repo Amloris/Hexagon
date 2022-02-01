@@ -120,21 +120,23 @@ public:
 		m_SquareShader.reset(new Hexagon::Shader(SquareVertexSrc, SquareFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Hexagon::Timestep timestep) override
 	{
+		HX_TRACE("Delta Time: {0}s, ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
+
 		// Camera Control
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * timestep;
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * timestep;
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_Q))
-			m_CameraRotation += m_CameraRotateSpeed;
+			m_CameraRotation += m_CameraRotateSpeed * timestep;
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_E))
-			m_CameraRotation -= m_CameraRotateSpeed;
+			m_CameraRotation -= m_CameraRotateSpeed * timestep;
 
 
 		// Render Commands
@@ -181,8 +183,8 @@ private:
 	glm::vec3 m_CameraPosition = {0.0f, 0.0f, 0.0f};
 	float m_CameraRotation = 0.0f;
 
-	float m_CameraMoveSpeed = 0.01f;
-	float m_CameraRotateSpeed = 0.1f;
+	float m_CameraMoveSpeed = 0.5f;
+	float m_CameraRotateSpeed = 10.0f;
 
 };
 

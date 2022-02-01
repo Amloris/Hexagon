@@ -7,6 +7,8 @@
 #include "Hexagon/Events/Event.h"
 #include "Hexagon/Events/ApplicationEvent.h"
 
+#include "Hexagon/Core/Timestep.h"
+
 #include "Hexagon/ImGui/ImGuiLayer.h"
 
 namespace Hexagon {
@@ -30,11 +32,12 @@ namespace Hexagon {
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime = 0.0f;
 
 	private:
 		static Application* s_Instance;

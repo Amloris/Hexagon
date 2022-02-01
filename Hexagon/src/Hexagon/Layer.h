@@ -3,7 +3,9 @@
 #pragma once
 
 #include "Hexagon/Core.h"
+#include "Hexagon/Core/Timestep.h"
 #include "Hexagon/Events/Event.h"
+
 
 namespace Hexagon
 {
@@ -15,7 +17,7 @@ namespace Hexagon
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep timestep) {}
 		virtual void OnImguiRender() {};
 		virtual void OnEvent(Event& event) {}
 

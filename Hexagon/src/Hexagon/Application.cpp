@@ -6,6 +6,10 @@
 
 //#include "Input.h"
 
+// Temporary
+#include <GLFW/glfw3.h>  
+
+
 
 namespace Hexagon {
 
@@ -55,11 +59,14 @@ namespace Hexagon {
 	{
 		while (m_Running)
 		{
-	
+			float time = (float)glfwGetTime();  // TODO: put in Platform::GetTime 
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			// Layers
 			// -------------------------------------------------------------------------
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack) {
