@@ -46,9 +46,7 @@ namespace Hexagon
 			// Todo: glfwTerminate on system shutdown
 			int success = glfwInit();
 			HX_CORE_ASSERT(success, "Failed to initialize GLFW!");
-
 			glfwSetErrorCallback(GLFWErrorCallback);
-
 			s_GLFWInitialized = true;
 		}
 

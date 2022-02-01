@@ -25,9 +25,9 @@ namespace Hexagon {
 	{
 		None = 0,
 		EventCategoryApplication = BIT(0),
-		EventCategoryInput = BIT(1),
-		EventCategoryKeyboard = BIT(2),
-		EventCategoryMouse = BIT(3),
+		EventCategoryInput       = BIT(1),
+		EventCategoryKeyboard    = BIT(2),
+		EventCategoryMouse       = BIT(3),
 		EventCategoryMouseButton = BIT(4),
 	};
 
@@ -39,8 +39,9 @@ namespace Hexagon {
 
 	class HEXAGON_API Event
 	{
-		friend class EventDispatcher;
 	public:
+		bool m_Handled = false;       //Todo: Make a function to mark things as "Handled"
+	
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;                       // Todo: Probably only needs to be implemented for debugging
 		virtual int GetCategoryFlags() const = 0;
@@ -52,10 +53,6 @@ namespace Hexagon {
 		}
 
 		bool& Handled() { return m_Handled; }
-
-	protected:
-		bool m_Handled = false;       //Todo: Make a function to mark things as "Handled"
-
 	};
 
 	class EventDispatcher

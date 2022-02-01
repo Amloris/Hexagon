@@ -12,6 +12,17 @@
 
 #include "Hexagon/ImGui/ImGuiLayer.h"
 
+//  -----Renderer--------------------------
+#include "Hexagon/Renderer/Renderer.h"
+#include "Hexagon/Renderer/RenderCommand.h"
+
+#include "Hexagon/Renderer/Shader.h"
+#include "Hexagon/Renderer/Buffer.h"
+#include "Hexagon/Renderer/VertexArray.h"
+
+#include "Hexagon/Renderer/OrthographicCamera.h"
+//  ----------------------------------------
+
 //  -----Entry Point------------------------
 #include "Hexagon/EntryPoint.h"
 //  ----------------------------------------
