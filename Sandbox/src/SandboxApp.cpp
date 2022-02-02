@@ -1,6 +1,7 @@
 #include "Hexagon.h"
 
 #include <glm/gtc/matrix_transform.hpp>  // Temporary
+#include <GLFW/include/GLFW/glfw3.h>     // Temporary
 
 #include "imgui/imgui.h"
 
@@ -91,7 +92,7 @@ public:
 		m_Shader.reset(new Hexagon::Shader(vertexSrc, fragmentSrc));
 
 		//Shader Square
-		std::string SquareVertexSrc = R"(
+		std::string flatColorVertexSrc = R"(
 			#version 330 core
 
 			layout (location = 0) in vec3 aPos;
@@ -108,20 +109,22 @@ public:
 			}
 		)";
 
-		std::string SquareFragmentSrc = R"(
+		std::string FlatColorFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
 			in vec3 vPos;
 
+			uniform vec4 u_Color;
+
 			void main()
 			{
-				color = vec4(vPos * 0.5 + 0.5, 1.0);
+				color = u_Color;
 			}
 		)";
 		;
-		m_SquareShader.reset(new Hexagon::Shader(SquareVertexSrc, SquareFragmentSrc));
+		m_FlatColorShader.reset(new Hexagon::Shader(flatColorVertexSrc, FlatColorFragmentSrc));
 	}
 
 	void OnUpdate(Hexagon::Timestep timestep) override
@@ -156,13 +159,23 @@ public:
 			m_Camera.setPosition(m_CameraPosition);
 			m_Camera.setRotation(m_CameraRotation);
 
+
+			glm::vec4  redColor(0.8f, 0.2f, 0.3f, 1.0f);
+			glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+
+
 			float shift{ 0.11f };
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 			for (int x = 0; x < 20; x++) {
 				for (int y = 0; y < 20; y++) {
 					glm::vec3 pos(x * shift, y * shift, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					Hexagon::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
+					if (x % 2 == 0)
+						m_FlatColorShader->UploadUniformFloat4("u_Color", redColor);
+					else							 
+						m_FlatColorShader->UploadUniformFloat4("u_Color", blueColor);
+
+					Hexagon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 				}
 			}
 			Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
@@ -191,6 +204,14 @@ public:
 
 	void OnEvent(Hexagon::Event& event) override
 	{
+		Hexagon::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Hexagon::WindowResizeEvent>(HX_BIND_EVENT_FN(ExampleLayer::OnWindowResizeEvent));
+	}
+
+	bool OnWindowResizeEvent(Hexagon::WindowResizeEvent& event) 
+	{
+		glViewport(0, 0, event.GetWidth(), event.GetHeight());
+		return true;
 	}
 
 
@@ -199,7 +220,7 @@ private:
 	std::shared_ptr<Hexagon::Shader> m_Shader;
 
 	std::shared_ptr<Hexagon::VertexArray> m_SquareVertexArray;
-	std::shared_ptr<Hexagon::Shader> m_SquareShader;
+	std::shared_ptr<Hexagon::Shader> m_FlatColorShader;
 
 	Hexagon::OrthographicCamera m_Camera;
 
