@@ -1,12 +1,14 @@
 #include "Hexagon.h"
 
+#include <glm/gtc/matrix_transform.hpp>  // Temporary
+
 #include "imgui/imgui.h"
 
 class ExampleLayer: public Hexagon::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f) 
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		// Vertex Array
 		m_VertexArray.reset(Hexagon::VertexArray::Create());
@@ -39,10 +41,10 @@ public:
 		m_SquareVertexArray.reset(Hexagon::VertexArray::Create());
 		float squareVertices[3 * 4] = {
 			// Positions         // Colors 
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f,
 		};
 
 		std::shared_ptr<Hexagon::VertexBuffer> SquareVertexBuffer;
@@ -65,11 +67,12 @@ public:
 			layout (location = 1) in vec4 aColor;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec4 ourColor;
 			void main()
 			{
-			   gl_Position = u_ViewProjection * vec4(aPos, 1.0);
+			   gl_Position = u_ViewProjection * u_Transform * vec4(aPos, 1.0);
 			   ourColor = aColor;
 			}
 		)";
@@ -94,13 +97,14 @@ public:
 			layout (location = 0) in vec3 aPos;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 vPos;
 
 			void main()
 			{
 				vPos = aPos;
-				gl_Position = u_ViewProjection * vec4(aPos, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(aPos, 1.0);
 			}
 		)";
 
@@ -122,7 +126,7 @@ public:
 
 	void OnUpdate(Hexagon::Timestep timestep) override
 	{
-		HX_TRACE("Delta Time: {0}s, ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
+		//HX_TRACE("Delta Time: {0}s, ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
 
 		// Camera Control
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_LEFT))
@@ -138,6 +142,8 @@ public:
 		if (Hexagon::Input::IsKeyPressed(HX_KEY_E))
 			m_CameraRotation -= m_CameraRotateSpeed * timestep;
 
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
 
 		// Render Commands
 		// -------------------------------------------------------------------------
@@ -150,7 +156,15 @@ public:
 			m_Camera.setPosition(m_CameraPosition);
 			m_Camera.setRotation(m_CameraRotation);
 
-			Hexagon::Renderer::Submit(m_SquareShader, m_SquareVertexArray);
+			float shift{ 0.11f };
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+			for (int x = 0; x < 20; x++) {
+				for (int y = 0; y < 20; y++) {
+					glm::vec3 pos(x * shift, y * shift, 0.0f);
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+					Hexagon::Renderer::Submit(m_SquareShader, m_SquareVertexArray, transform);
+				}
+			}
 			Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
 		}
 		Hexagon::Renderer::EndScene();
@@ -159,10 +173,19 @@ public:
 
 	virtual void OnImguiRender() override 
 	{
-		ImGui::Begin("FPS");
-		ImGui::Text("Hello, world!");
+		Hexagon::Application& app = Hexagon::Application::Get();
+		unsigned int windowWidth = app.GetWindow().GetWidth();
+		unsigned int windowHeight = app.GetWindow().GetHeight();
+
+		auto [mousePosX, mousePosY] = Hexagon::Input::GetMousePosition();
+		HX_INFO("Mouse Position: {0}, {1}", mousePosX, mousePosY);
+
+
+		ImGui::Begin("Hexagon Info");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
 			1000.0 / double(ImGui::GetIO().Framerate), double(ImGui::GetIO().Framerate));
+		ImGui::Text("Width: %i, Height: %i", windowWidth, windowHeight);
+		ImGui::Text("       %i,         %i", (int)mousePosX, (int)mousePosY);
 		ImGui::End();
 	}
 
