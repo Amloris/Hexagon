@@ -1,9 +1,12 @@
 #include "Hexagon.h"
 
-#include <glm/gtc/matrix_transform.hpp>  // Temporary
-#include <GLFW/include/GLFW/glfw3.h>     // Temporary
+#include <glm/gtc/matrix_transform.hpp>   // Temporary
+#include <glm/gtc/type_ptr.hpp>
+#include <GLFW/include/GLFW/glfw3.h>      // Temporary
+#include "Platform/OpenGL/OpenGLShader.h" // Temporary
 
 #include "imgui/imgui.h"
+
 
 class ExampleLayer: public Hexagon::Layer
 {
@@ -88,8 +91,8 @@ public:
 				FragColor = vec4(ourColor);
 			}
 		)";
-		;
-		m_Shader.reset(new Hexagon::Shader(vertexSrc, fragmentSrc));
+		
+		m_Shader.reset(Hexagon::Shader::Create(vertexSrc, fragmentSrc));
 
 		//Shader Square
 		std::string flatColorVertexSrc = R"(
@@ -116,15 +119,15 @@ public:
 
 			in vec3 vPos;
 
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
-		;
-		m_FlatColorShader.reset(new Hexagon::Shader(flatColorVertexSrc, FlatColorFragmentSrc));
+		
+		m_FlatColorShader.reset(Hexagon::Shader::Create(flatColorVertexSrc, FlatColorFragmentSrc));
 	}
 
 	void OnUpdate(Hexagon::Timestep timestep) override
@@ -159,10 +162,8 @@ public:
 			m_Camera.setPosition(m_CameraPosition);
 			m_Camera.setRotation(m_CameraRotation);
 
-
-			glm::vec4  redColor(0.8f, 0.2f, 0.3f, 1.0f);
-			glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
-
+			std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->Bind();
+			std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 			float shift{ 0.11f };
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -170,11 +171,6 @@ public:
 				for (int y = 0; y < 20; y++) {
 					glm::vec3 pos(x * shift, y * shift, 0.0f);
 					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-					if (x % 2 == 0)
-						m_FlatColorShader->UploadUniformFloat4("u_Color", redColor);
-					else							 
-						m_FlatColorShader->UploadUniformFloat4("u_Color", blueColor);
-
 					Hexagon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 				}
 			}
@@ -186,6 +182,7 @@ public:
 
 	virtual void OnImguiRender() override 
 	{
+		// Application Information
 		Hexagon::Application& app = Hexagon::Application::Get();
 		unsigned int windowWidth = app.GetWindow().GetWidth();
 		unsigned int windowHeight = app.GetWindow().GetHeight();
@@ -193,13 +190,20 @@ public:
 		auto [mousePosX, mousePosY] = Hexagon::Input::GetMousePosition();
 		HX_INFO("Mouse Position: {0}, {1}", mousePosX, mousePosY);
 
-
 		ImGui::Begin("Hexagon Info");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
 			1000.0 / double(ImGui::GetIO().Framerate), double(ImGui::GetIO().Framerate));
 		ImGui::Text("Width: %i, Height: %i", windowWidth, windowHeight);
 		ImGui::Text("       %i,         %i", (int)mousePosX, (int)mousePosY);
 		ImGui::End();
+
+		// Imgui Color Picker
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+
+		ImGui::End();
+
+
 	}
 
 	void OnEvent(Hexagon::Event& event) override
@@ -229,6 +233,8 @@ private:
 
 	float m_CameraMoveSpeed = 0.5f;
 	float m_CameraRotateSpeed = 10.0f;
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 };
 

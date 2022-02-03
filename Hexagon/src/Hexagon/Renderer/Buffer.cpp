@@ -33,7 +33,7 @@ namespace Hexagon {
 		}
 
 		HX_CORE_ASSERT(false, "Invalid RenderAPI!")
-			return nullptr;
+		return nullptr;
 	}
 
 }
