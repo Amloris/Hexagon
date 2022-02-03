@@ -43,18 +43,19 @@ public:
 
 		//Testing Square
 		m_SquareVertexArray.reset(Hexagon::VertexArray::Create());
-		float squareVertices[3 * 4] = {
+		float squareVertices[5 * 4] = {
 			// Positions         // Colors 
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Hexagon::Ref<Hexagon::VertexBuffer> SquareVertexBuffer;
 		SquareVertexBuffer.reset(Hexagon::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		SquareVertexBuffer->SetLayout({
 			{ Hexagon::ShaderDataType::Float3, "aPos"},
+			{ Hexagon::ShaderDataType::Float2, "aTexCoord"},
 			});
 		m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
 
@@ -128,6 +129,48 @@ public:
 		)";
 		
 		m_FlatColorShader.reset(Hexagon::Shader::Create(flatColorVertexSrc, FlatColorFragmentSrc));
+
+		// Texture Shader
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout (location = 0) in vec3 aPos;
+			layout (location = 1) in vec2 aTexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+
+			void main()
+			{
+				v_TexCoord = aTexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(aPos, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(Hexagon::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_Texture= Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
+
+		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+
 	}
 
 	void OnUpdate(Hexagon::Timestep timestep) override
@@ -157,16 +200,18 @@ public:
 		Hexagon::RenderCommand::SetClearColor(colorUbuntuTerminal);
 		Hexagon::RenderCommand::Clear();
 
+		m_Camera.setPosition(m_CameraPosition);
+		m_Camera.setRotation(m_CameraRotation);
+
 		Hexagon::Renderer::BeginScene(m_Camera);
+
 		{
-			m_Camera.setPosition(m_CameraPosition);
-			m_Camera.setRotation(m_CameraRotation);
+			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 			std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->Bind();
 			std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 			float shift{ 0.11f };
-			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 			for (int x = 0; x < 20; x++) {
 				for (int y = 0; y < 20; y++) {
 					glm::vec3 pos(x * shift, y * shift, 0.0f);
@@ -174,10 +219,15 @@ public:
 					Hexagon::Renderer::Submit(m_FlatColorShader, m_SquareVertexArray, transform);
 				}
 			}
-			Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
 		}
-		Hexagon::Renderer::EndScene();
 
+		m_Texture->Bind();
+		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle 
+		//Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
+		
+		Hexagon::Renderer::EndScene();
 	}
 
 	virtual void OnImguiRender() override 
@@ -220,11 +270,13 @@ public:
 
 
 private:
-	Hexagon::Ref<Hexagon::VertexArray> m_VertexArray;
 	Hexagon::Ref<Hexagon::Shader> m_Shader;
+	Hexagon::Ref<Hexagon::VertexArray> m_VertexArray;
 
+	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader, m_TextureShader;
 	Hexagon::Ref<Hexagon::VertexArray> m_SquareVertexArray;
-	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader;
+	
+	Hexagon::Ref<Hexagon::Texture2D> m_Texture;
 
 	Hexagon::OrthographicCamera m_Camera;
 

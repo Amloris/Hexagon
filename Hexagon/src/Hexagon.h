@@ -19,6 +19,7 @@
 #include "Hexagon/Renderer/RenderCommand.h"
 
 #include "Hexagon/Renderer/Shader.h"
+#include "Hexagon/Renderer/Texture.h"
 #include "Hexagon/Renderer/Buffer.h"
 #include "Hexagon/Renderer/VertexArray.h"
 
