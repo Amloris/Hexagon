@@ -25,7 +25,7 @@ public:
 			 0.0f,  0.5f, 0.0f,  0.2f, 0.3f, 0.8f, 1.0f,
 		};
 
-		std::shared_ptr<Hexagon::VertexBuffer> vertexBuffer;
+		Hexagon::Ref<Hexagon::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Hexagon::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		Hexagon::BufferLayout layout = {
@@ -37,7 +37,7 @@ public:
 
 		// Index buffer
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Hexagon::IndexBuffer> indexBuffer;
+		Hexagon::Ref<Hexagon::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Hexagon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -51,7 +51,7 @@ public:
 			-0.5f,  0.5f, 0.0f,
 		};
 
-		std::shared_ptr<Hexagon::VertexBuffer> SquareVertexBuffer;
+		Hexagon::Ref<Hexagon::VertexBuffer> SquareVertexBuffer;
 		SquareVertexBuffer.reset(Hexagon::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		SquareVertexBuffer->SetLayout({
 			{ Hexagon::ShaderDataType::Float3, "aPos"},
@@ -59,7 +59,7 @@ public:
 		m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Hexagon::IndexBuffer> SquareIndexBuffer;
+		Hexagon::Ref<Hexagon::IndexBuffer> SquareIndexBuffer;
 		SquareIndexBuffer.reset(Hexagon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
@@ -220,11 +220,11 @@ public:
 
 
 private:
-	std::shared_ptr<Hexagon::VertexArray> m_VertexArray;
-	std::shared_ptr<Hexagon::Shader> m_Shader;
+	Hexagon::Ref<Hexagon::VertexArray> m_VertexArray;
+	Hexagon::Ref<Hexagon::Shader> m_Shader;
 
-	std::shared_ptr<Hexagon::VertexArray> m_SquareVertexArray;
-	std::shared_ptr<Hexagon::Shader> m_FlatColorShader;
+	Hexagon::Ref<Hexagon::VertexArray> m_SquareVertexArray;
+	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader;
 
 	Hexagon::OrthographicCamera m_Camera;
 
