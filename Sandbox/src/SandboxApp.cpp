@@ -165,9 +165,17 @@ public:
 			}
 		)";
 
-		m_TextureShader.reset(Hexagon::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
-		m_Texture= Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
+		//m_TextureShader.reset(Hexagon::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_TextureShader.reset(Hexagon::Shader::Create("assets/shaders/Texture.glsl"));
+
+
+		// TESTING
+		//Hexagon::Ref<Hexagon::Shader> m_TestShader;
+		//m_TestShader.reset(Hexagon::Shader::Create("assets/shaders/Texture.glsl"));
+
+		m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
 		m_ChernoLogoTexture = Hexagon::Texture2D::Create("assets/textures/ChernoLogo.png");
+		m_BruhTexture = Hexagon::Texture2D::Create("assets/textures/Bruh.png");
 
 		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -225,9 +233,11 @@ public:
 		m_Texture->Bind();
 		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		
-		m_ChernoLogoTexture->Bind();
-		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, 
-			glm::translate(glm::mat4(1.0f), glm::vec3(0.25f, -0.25f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		//m_ChernoLogoTexture->Bind();
+		//Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		m_BruhTexture->Bind();
+		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle 
 		//Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
@@ -281,7 +291,7 @@ private:
 	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader, m_TextureShader;
 	Hexagon::Ref<Hexagon::VertexArray> m_SquareVertexArray;
 	
-	Hexagon::Ref<Hexagon::Texture2D> m_Texture, m_ChernoLogoTexture;
+	Hexagon::Ref<Hexagon::Texture2D> m_Texture, m_ChernoLogoTexture, m_BruhTexture;
 
 	Hexagon::OrthographicCamera m_Camera;
 
