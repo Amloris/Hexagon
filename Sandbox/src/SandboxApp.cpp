@@ -13,7 +13,7 @@ class ExampleLayer: public Hexagon::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		: Layer("Example"), m_CameraController(1280.0f/720.0f, true)
 	{
 		// Vertex Array
 		m_VertexArray.reset(Hexagon::VertexArray::Create());
@@ -186,23 +186,10 @@ public:
 
 	void OnUpdate(Hexagon::Timestep timestep) override
 	{
-		//HX_TRACE("Delta Time: {0}s, ({1}ms)", timestep.GetSeconds(), timestep.GetMilliseconds());
+		// Update
+		// -------------------------------------------------------------------------
+		m_CameraController.OnUpdate(timestep);
 
-		// Camera Control
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * timestep;
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * timestep;
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_Q))
-			m_CameraRotation += m_CameraRotateSpeed * timestep;
-		if (Hexagon::Input::IsKeyPressed(HX_KEY_E))
-			m_CameraRotation -= m_CameraRotateSpeed * timestep;
-
-		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 
 		// Render Commands
@@ -211,10 +198,7 @@ public:
 		Hexagon::RenderCommand::SetClearColor(colorUbuntuTerminal);
 		Hexagon::RenderCommand::Clear();
 
-		m_Camera.setPosition(m_CameraPosition);
-		m_Camera.setRotation(m_CameraRotation);
-
-		Hexagon::Renderer::BeginScene(m_Camera);
+		Hexagon::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		{
 			glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -279,6 +263,10 @@ public:
 
 	void OnEvent(Hexagon::Event& event) override
 	{
+		// Camera
+		// -------------------------------------------------------------------------
+		m_CameraController.OnEvent(event);
+
 		Hexagon::EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<Hexagon::WindowResizeEvent>(HX_BIND_EVENT_FN(ExampleLayer::OnWindowResizeEvent));
 	}
@@ -301,13 +289,8 @@ private:
 	
 	Hexagon::Ref<Hexagon::Texture2D> m_Texture, m_ChernoLogoTexture, m_BruhTexture;
 
-	Hexagon::OrthographicCamera m_Camera;
+	Hexagon::OrthographicCameraController m_CameraController;
 
-	glm::vec3 m_CameraPosition = {0.0f, 0.0f, 0.0f};
-	float m_CameraRotation = 0.0f;
-
-	float m_CameraMoveSpeed = 0.5f;
-	float m_CameraRotateSpeed = 10.0f;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 

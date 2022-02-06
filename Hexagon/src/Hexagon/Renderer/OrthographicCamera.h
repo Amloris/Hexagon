@@ -10,6 +10,7 @@ namespace Hexagon
 	{
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
+		void SetProjection(float left, float right, float bottom, float top);
 
 		const glm::vec3 getPosition() const { return m_Position; }
 		void setPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
