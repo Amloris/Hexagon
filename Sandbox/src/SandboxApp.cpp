@@ -2,12 +2,9 @@
 
 #include <glm/gtc/matrix_transform.hpp>   // Temporary
 #include <glm/gtc/type_ptr.hpp>
-#include <GLFW/include/GLFW/glfw3.h>      // Temporary
 #include "Platform/OpenGL/OpenGLShader.h" // Temporary
 
-
 #include "imgui/imgui.h"
-
 
 class ExampleLayer: public Hexagon::Layer
 {
@@ -190,8 +187,6 @@ public:
 		// -------------------------------------------------------------------------
 		m_CameraController.OnUpdate(timestep);
 
-
-
 		// Render Commands
 		// -------------------------------------------------------------------------
 		const glm::vec4 colorUbuntuTerminal = { 0.1875f, 0.0391f, 0.1406f, 0.8f };
@@ -243,7 +238,7 @@ public:
 		unsigned int windowHeight = app.GetWindow().GetHeight();
 
 		auto [mousePosX, mousePosY] = Hexagon::Input::GetMousePosition();
-		HX_INFO("Mouse Position: {0}, {1}", mousePosX, mousePosY);
+		//HX_INFO("Mouse Position: {0}, {1}", mousePosX, mousePosY);
 
 		ImGui::Begin("Hexagon Info");
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
@@ -257,8 +252,6 @@ public:
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 
 		ImGui::End();
-
-
 	}
 
 	void OnEvent(Hexagon::Event& event) override
@@ -267,14 +260,6 @@ public:
 		// -------------------------------------------------------------------------
 		m_CameraController.OnEvent(event);
 
-		Hexagon::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Hexagon::WindowResizeEvent>(HX_BIND_EVENT_FN(ExampleLayer::OnWindowResizeEvent));
-	}
-
-	bool OnWindowResizeEvent(Hexagon::WindowResizeEvent& event) 
-	{
-		glViewport(0, 0, event.GetWidth(), event.GetHeight());
-		return true;
 	}
 
 

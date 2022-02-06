@@ -45,6 +45,7 @@ namespace Hexagon {
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )     // Handle events from the top down
 		{
@@ -64,8 +65,11 @@ namespace Hexagon {
 
 			// Layers
 			// -------------------------------------------------------------------------
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack) {
@@ -83,8 +87,24 @@ namespace Hexagon {
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
-
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		//HX_CORE_WARN("{0}, {1}", e.GetWidth(), e.GetHeight());
+
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		m_Minimized = false;
+
+		return false;
 	}
 
 }
