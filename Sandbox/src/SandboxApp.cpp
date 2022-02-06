@@ -5,6 +5,7 @@
 #include <GLFW/include/GLFW/glfw3.h>      // Temporary
 #include "Platform/OpenGL/OpenGLShader.h" // Temporary
 
+
 #include "imgui/imgui.h"
 
 
@@ -93,7 +94,7 @@ public:
 			}
 		)";
 		
-		m_Shader.reset(Hexagon::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Hexagon::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		//Shader Square
 		std::string flatColorVertexSrc = R"(
@@ -128,7 +129,7 @@ public:
 			}
 		)";
 		
-		m_FlatColorShader.reset(Hexagon::Shader::Create(flatColorVertexSrc, FlatColorFragmentSrc));
+		m_FlatColorShader = Hexagon::Shader::Create("FlatColor",flatColorVertexSrc, FlatColorFragmentSrc);
 
 		// Texture Shader
 		std::string textureShaderVertexSrc = R"(
@@ -166,7 +167,8 @@ public:
 		)";
 
 		//m_TextureShader.reset(Hexagon::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
-		m_TextureShader.reset(Hexagon::Shader::Create("assets/shaders/Texture.glsl"));
+		//m_TextureShader = Hexagon::Shader::Create("assets/shaders/Texture.glsl");
+		auto TextureShader = m_shaderLibrary.Load("assets/shaders/Texture.glsl");
 
 
 		// TESTING
@@ -177,8 +179,8 @@ public:
 		m_ChernoLogoTexture = Hexagon::Texture2D::Create("assets/textures/ChernoLogo.png");
 		m_BruhTexture = Hexagon::Texture2D::Create("assets/textures/Bruh.png");
 
-		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(TextureShader)->Bind();
+		std::dynamic_pointer_cast<Hexagon::OpenGLShader>(TextureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -230,14 +232,18 @@ public:
 			}
 		}
 
+		// Textures
+		// ---------------------------
+		auto TextureShader = m_shaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Hexagon::Renderer::Submit(TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		
 		//m_ChernoLogoTexture->Bind();
 		//Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_BruhTexture->Bind();
-		Hexagon::Renderer::Submit(m_TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		Hexagon::Renderer::Submit(TextureShader, m_SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle 
 		//Hexagon::Renderer::Submit(m_Shader, m_VertexArray);
@@ -285,10 +291,12 @@ public:
 
 
 private:
+	Hexagon::ShaderLibrary m_shaderLibrary;
+
 	Hexagon::Ref<Hexagon::Shader> m_Shader;
 	Hexagon::Ref<Hexagon::VertexArray> m_VertexArray;
 
-	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader, m_TextureShader;
+	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader;
 	Hexagon::Ref<Hexagon::VertexArray> m_SquareVertexArray;
 	
 	Hexagon::Ref<Hexagon::Texture2D> m_Texture, m_ChernoLogoTexture, m_BruhTexture;

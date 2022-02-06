@@ -24,9 +24,17 @@ namespace Hexagon
 		auto shaderSources = PreProcess(source);
 		Compile(shaderSources);
 
+		//Extract name from filepath
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = filepath.rfind(".");
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_Name = filepath.substr(lastSlash, count);
+
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		:m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
@@ -43,7 +51,7 @@ namespace Hexagon
 	std::string OpenGLShader::ReadFile(const std::string filepath)
 	{
 		std::string result;
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
 		if (in)
 		{
@@ -89,9 +97,10 @@ namespace Hexagon
 		GLuint program = glCreateProgram();
 
 		//Keep track of OpenGL shader IDs so they can be released later if linking fails
-		std::vector<GLenum> glShaderIDs(shaderSources.size());
+		HX_CORE_ASSERT(shaderSources.size() <= 2, "Only a maximum of two shaders are supported");
+		std::array<GLenum, 2> glShaderIDs;
+		int glShaderIndex = 0;
 
-		// for (auto& kv : shaderSources)
 
 		for (auto&& [key, value] : shaderSources)
 		{
@@ -130,7 +139,7 @@ namespace Hexagon
 			// Attach our shaders to our program
 			glAttachShader(program, shader);
 
-			glShaderIDs.push_back(shader);
+			glShaderIDs[glShaderIndex++] = shader;
 		}
 
 		// Link our program
