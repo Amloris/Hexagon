@@ -83,7 +83,7 @@ project "Hexagon"
 
 		defines
 		{
-			"HX_PLATFORM_WINDOWS",
+			--"HX_PLATFORM_WINDOWS",
 			"HX_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 		}
@@ -138,7 +138,7 @@ project "Sandbox"
 
 		defines
 		{
-			"HX_PLATFORM_WINDOWS",
+			--"HX_PLATFORM_WINDOWS",
 		}
 
 	filter "configurations:Debug"

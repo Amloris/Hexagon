@@ -20,8 +20,13 @@ namespace Hexagon
 
 	void OrthographicCamera::RecalculateViewMatrix()
 	{
+		//Rotation works, but translation is incorrect, translates along world axis despite camera rotation
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * 
 							  glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		//Translation works with rotation, but it rotates about the origin
+		//glm::mat4 transform = glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		//					  glm::translate(glm::mat4(1.0f), m_Position);
 
 		m_ViewMatrix = glm::inverse(transform);
 
