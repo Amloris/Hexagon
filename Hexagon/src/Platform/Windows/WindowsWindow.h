@@ -2,7 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Hexagon/Window.h"
+#include "Hexagon/Core/Window.h"
 #include "Hexagon/Renderer/GraphicsContext.h"
 
 

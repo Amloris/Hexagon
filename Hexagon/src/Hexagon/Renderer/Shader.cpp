@@ -25,7 +25,7 @@ namespace Hexagon {
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: HX_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
-			case RendererAPI::API::OpenGL: return std::make_shared <OpenGLShader>(name, vertexSrc, fragmentSrc);
+			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		HX_CORE_ASSERT(false, "Invalid RenderAPI!")

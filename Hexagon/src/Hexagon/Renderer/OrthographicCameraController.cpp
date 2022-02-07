@@ -2,9 +2,9 @@
 
 #include "OrthographicCameraController.h"
 
-#include "Hexagon/Input.h"
-#include "Hexagon/KeyCodes.h"
-#include "Hexagon/MouseButtonCodes.h"
+#include "Hexagon/Core/Input.h"
+#include "Hexagon/Core/KeyCodes.h"
+#include "Hexagon/Core/MouseButtonCodes.h"
 #include "Hexagon/Events/KeyEvent.h"
 
 namespace Hexagon

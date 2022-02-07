@@ -2,20 +2,20 @@
 
 // For use by Hazel applications
 
-#include "Hexagon/Application.h"
-#include "Hexagon/Layer.h"
-#include "Hexagon/Log.h"
+#include "Hexagon/Core/Application.h"
+#include "Hexagon/Core/Layer.h"
+#include "Hexagon/Core/Log.h"
 
 #include "Hexagon/Core/Timestep.h"
 
 #include "Hexagon/ImGui/ImGuiLayer.h"
 
 //  -----Input-----------------------------
-#include "Hexagon/Input.h"
-#include "Hexagon/KeyCodes.h"
-#include "Hexagon/MouseButtonCodes.h"
+#include "Hexagon/Core/Input.h"
+#include "Hexagon/Core/KeyCodes.h"
+#include "Hexagon/Core/MouseButtonCodes.h"
 
-#include "Hexagon/OrthographicCameraController.h"
+#include "Hexagon/Renderer/OrthographicCameraController.h"
 
 
 //  -----Renderer--------------------------
@@ -31,5 +31,5 @@
 //  ----------------------------------------
 
 //  -----Entry Point------------------------
-#include "Hexagon/EntryPoint.h"
+#include "Hexagon/Core/EntryPoint.h"
 //  ----------------------------------------

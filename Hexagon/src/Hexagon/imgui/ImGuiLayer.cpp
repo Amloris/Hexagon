@@ -6,7 +6,7 @@
 #include "backends/imgui_impl_opengl3.cpp"
 #include "backends/imgui_impl_glfw.cpp"
 
-#include "Hexagon/Application.h"
+#include "Hexagon/Core/Application.h"
 
 // TEMPORARY
 //#include <glad/glad.h>

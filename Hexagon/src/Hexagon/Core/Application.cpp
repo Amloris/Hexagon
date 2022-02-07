@@ -1,8 +1,8 @@
 #include "hxpch.h"
 
 #include "Application.h"
-#include "Hexagon/Log.h"
-#include "Renderer/Renderer.h"
+#include "Hexagon/Core/Log.h"
+#include "Hexagon/Renderer/Renderer.h"
 
 //#include "Input.h"
 

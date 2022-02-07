@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hexagon/Core.h"
+#include "Hexagon/Core/Core.h"
 
 #include <string>
 #include <functional>

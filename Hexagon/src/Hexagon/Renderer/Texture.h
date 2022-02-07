@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Hexagon/Core.h"
+#include "Hexagon/Core/Core.h"
 
 namespace Hexagon
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hexagon/Input.h"
+#include "Hexagon/Core/Input.h"
 
 namespace Hexagon
 {

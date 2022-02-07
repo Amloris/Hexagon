@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Hexagon/Log.h"
+#include "Hexagon/Core/Log.h"
 
 #ifdef HX_PLATFORM_WINDOWS
 	#include <Windows.h>

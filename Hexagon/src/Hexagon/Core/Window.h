@@ -2,7 +2,7 @@
 
 #include "hxpch.h"
 
-#include "Hexagon/Core.h"
+#include "Hexagon/Core/Core.h"
 #include "Hexagon/Events/Event.h"
 
 namespace Hexagon
