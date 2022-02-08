@@ -44,21 +44,21 @@ namespace Hexagon {
 		Add(name, shader);
 	}
 
-	Hexagon::Ref<Hexagon::Shader> ShaderLibrary::Load(const std::string& filePath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& filePath)
 	{
 		auto shader = Shader::Create(filePath);
 		Add(shader);
 		return shader;
 	}
 
-	Hexagon::Ref<Hexagon::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filePath)
+	Ref<Shader> ShaderLibrary::Load(const std::string& name, const std::string& filePath)
 	{
 		auto shader = Shader::Create(filePath);
 		Add(name, shader);
 		return shader;
 	}
 
-	Hexagon::Ref<Hexagon::Shader> ShaderLibrary::Get(const std::string& name)
+	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
 		HX_CORE_ASSERT(Exists(name), "Shader does not exists in shader library!");
 		return m_Shaders[name];

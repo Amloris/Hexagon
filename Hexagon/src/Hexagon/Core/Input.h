@@ -29,7 +29,7 @@ namespace Hexagon
 		virtual float GetMouseYImpl() = 0;
 
 	private:
-		static Input* s_Instance;  //Make the class a singleton
+		static Scope<Input> s_Instance;  //Make the class a singleton
 	};
 
 }

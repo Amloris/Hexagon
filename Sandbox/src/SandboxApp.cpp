@@ -13,7 +13,7 @@ public:
 		: Layer("Example"), m_CameraController(1280.0f/720.0f, true)
 	{
 		// Vertex Array
-		m_VertexArray.reset(Hexagon::VertexArray::Create());
+		m_VertexArray = Hexagon::VertexArray::Create();
 
 		// Vertex Buffer
 		float vertices[3 * 7] = {
@@ -24,7 +24,7 @@ public:
 		};
 
 		Hexagon::Ref<Hexagon::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Hexagon::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Hexagon::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		Hexagon::BufferLayout layout = {
 			{ Hexagon::ShaderDataType::Float3, "aPos"},
@@ -36,11 +36,11 @@ public:
 		// Index buffer
 		uint32_t indices[3] = { 0, 1, 2 };
 		Hexagon::Ref<Hexagon::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Hexagon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Hexagon::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		//Testing Square
-		m_SquareVertexArray.reset(Hexagon::VertexArray::Create());
+		m_SquareVertexArray = Hexagon::VertexArray::Create();
 		float squareVertices[5 * 4] = {
 			// Positions         // Colors 
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -50,7 +50,7 @@ public:
 		};
 
 		Hexagon::Ref<Hexagon::VertexBuffer> SquareVertexBuffer;
-		SquareVertexBuffer.reset(Hexagon::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		SquareVertexBuffer = Hexagon::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		SquareVertexBuffer->SetLayout({
 			{ Hexagon::ShaderDataType::Float3, "aPos"},
 			{ Hexagon::ShaderDataType::Float2, "aTexCoord"},
@@ -59,7 +59,7 @@ public:
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		Hexagon::Ref<Hexagon::IndexBuffer> SquareIndexBuffer;
-		SquareIndexBuffer.reset(Hexagon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		SquareIndexBuffer = Hexagon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
 		// Shader
