@@ -129,7 +129,7 @@ public:
 			}
 		)";
 		
-		m_FlatColorShader = Hexagon::Shader::Create("FlatColor",flatColorVertexSrc, FlatColorFragmentSrc);
+		m_FlatColorShader = Hexagon::Shader::Create("FlatColor", flatColorVertexSrc, FlatColorFragmentSrc);
 
 		// Texture Shader
 		std::string textureShaderVertexSrc = R"(

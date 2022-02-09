@@ -2,8 +2,6 @@
 
 #include "imgui/imgui.h"
 
-#include "Platform/OpenGL/OpenGLShader.h" // Temporary
-
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -58,13 +56,12 @@ void Sandbox2D::OnUpdate(Hexagon::Timestep timestep)
 
 	Hexagon::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-	Hexagon::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
+	Hexagon::Renderer2D::DrawQuad({ -0.5f, -0.2f }, { 1.5f, 1.0f }, m_SquareColor);
+	Hexagon::Renderer2D::DrawQuad({ 0.5f, 0.5f }, { 1.0f, 1.5f }, {0.2f, 0.8f, 0.3f, 0.8f});
+
 
 	Hexagon::Renderer2D::EndScene();
 
-	// TODO: Add these functions: Shader::SetMat4, Shader::SetFloat4
-	//std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->Bind();
-	//std::dynamic_pointer_cast<Hexagon::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 }
 
 void Sandbox2D::OnImguiRender()
