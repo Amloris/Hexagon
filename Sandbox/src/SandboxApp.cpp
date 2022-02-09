@@ -1,10 +1,13 @@
-#include "Hexagon.h"
+#include <Hexagon.h>
+#include <Hexagon/Core/EntryPoint.h>
 
 #include <glm/gtc/matrix_transform.hpp>   // Temporary
 #include <glm/gtc/type_ptr.hpp>
 #include "Platform/OpenGL/OpenGLShader.h" // Temporary
 
 #include "imgui/imgui.h"
+
+#include "Sandbox2D.h"
 
 class ExampleLayer: public Hexagon::Layer
 {
@@ -250,7 +253,6 @@ public:
 		// Imgui Color Picker
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
-
 		ImGui::End();
 	}
 
@@ -259,7 +261,6 @@ public:
 		// Camera
 		// -------------------------------------------------------------------------
 		m_CameraController.OnEvent(event);
-
 	}
 
 
@@ -300,8 +301,9 @@ class Sandbox : public Hexagon::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer);
-		PushLayer(new TestLayer);
+		//PushLayer(new ExampleLayer);
+		//PushLayer(new TestLayer);
+		PushLayer(new Sandbox2D);
 	}
 
 	~Sandbox()

@@ -31,5 +31,5 @@
 //  ----------------------------------------
 
 //  -----Entry Point------------------------
-#include "Hexagon/Core/EntryPoint.h"
+// #include "Hexagon/Core/EntryPoint.h"
 //  ----------------------------------------
