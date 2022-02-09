@@ -20,20 +20,36 @@ namespace Hexagon
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
 	{
 		// Camera Control
-		if (Input::IsKeyPressed(HX_KEY_A))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * timestep;
-		if (Input::IsKeyPressed(HX_KEY_D))
-			m_CameraPosition.x += m_CameraTranslationSpeed * timestep;
-		if (Input::IsKeyPressed(HX_KEY_W))
-			m_CameraPosition.y += m_CameraTranslationSpeed * timestep;
-		if (Input::IsKeyPressed(HX_KEY_S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * timestep;
+		float distanceStep = m_CameraTranslationSpeed * timestep;
+		if (Input::IsKeyPressed(HX_KEY_A)) {
+			m_CameraPosition.x -=  cos(glm::radians(m_CameraRotation)) * distanceStep;
+			m_CameraPosition.y -=  sin(glm::radians(m_CameraRotation)) * distanceStep;
+		}
+		if (Input::IsKeyPressed(HX_KEY_D)) {
+			m_CameraPosition.x +=  cos(glm::radians(m_CameraRotation)) * distanceStep;
+			m_CameraPosition.y +=  sin(glm::radians(m_CameraRotation)) * distanceStep;
+		}
+		if (Input::IsKeyPressed(HX_KEY_W)) {
+			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * distanceStep;
+			m_CameraPosition.y +=  cos(glm::radians(m_CameraRotation)) * distanceStep;
+		}
+		if (Input::IsKeyPressed(HX_KEY_S)) {
+			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * distanceStep;
+			m_CameraPosition.y -=  cos(glm::radians(m_CameraRotation)) * distanceStep;
+		}
+
 		if (m_AllowRotation)
 		{
 			if (Input::IsKeyPressed(HX_KEY_Q))
 				m_CameraRotation += m_CameraRotationSpeed * timestep;
 			if (Input::IsKeyPressed(HX_KEY_E))
 				m_CameraRotation -= m_CameraRotationSpeed * timestep;
+
+			if (m_CameraRotation > 180.0f)
+				m_CameraRotation -= 360.0f;
+			if (m_CameraRotation < -180.0f)
+				m_CameraRotation += 360.0f;
+
 			m_Camera.setRotation(m_CameraRotation);
 		}
 
