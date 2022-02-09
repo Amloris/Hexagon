@@ -20,6 +20,7 @@
 
 //  -----Renderer--------------------------
 #include "Hexagon/Renderer/Renderer.h"
+#include "Hexagon/Renderer/Renderer2D.h"
 #include "Hexagon/Renderer/RenderCommand.h"
 
 #include "Hexagon/Renderer/Shader.h"
