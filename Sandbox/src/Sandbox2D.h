@@ -21,5 +21,7 @@ private:
 	Hexagon::Ref<Hexagon::VertexArray> m_SquareVertexArray;
 	Hexagon::Ref<Hexagon::Shader> m_FlatColorShader;
 
+	Hexagon::Ref<Hexagon::Texture2D> m_Texture;
+
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

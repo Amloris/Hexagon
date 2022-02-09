@@ -12,29 +12,8 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
-	//Testing Square
-	m_SquareVertexArray = Hexagon::VertexArray::Create();
-	float squareVertices[3 * 4] = {
-		// Positions
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.5f,  0.5f, 0.0f,
-		-0.5f,  0.5f, 0.0f,
-	};
-
-	Hexagon::Ref<Hexagon::VertexBuffer> SquareVertexBuffer;
-	SquareVertexBuffer = Hexagon::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
-	SquareVertexBuffer->SetLayout({
-		{ Hexagon::ShaderDataType::Float3, "aPos"},
-	});
-	m_SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
-
-	uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-	Hexagon::Ref<Hexagon::IndexBuffer> SquareIndexBuffer;
-	SquareIndexBuffer = Hexagon::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
-	m_SquareVertexArray->SetIndexBuffer(SquareIndexBuffer);
-
-	m_FlatColorShader = Hexagon::Shader::Create("assets/Shaders/FlatColor.glsl");
+	//m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -57,8 +36,8 @@ void Sandbox2D::OnUpdate(Hexagon::Timestep timestep)
 	Hexagon::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 	Hexagon::Renderer2D::DrawQuad({ -0.5f, -0.2f }, { 1.5f, 1.0f }, m_SquareColor);
-	Hexagon::Renderer2D::DrawQuad({ 0.5f, 0.5f }, { 1.0f, 1.5f }, {0.2f, 0.8f, 0.3f, 0.8f});
-
+	Hexagon::Renderer2D::DrawQuad({ 0.5f, 0.5f, 0.1f }, { 1.0f, 1.5f }, {0.2f, 0.8f, 0.3f, 0.8f});
+	Hexagon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 2.0f, 2.0f }, m_Texture);
 
 	Hexagon::Renderer2D::EndScene();
 
