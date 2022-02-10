@@ -3,7 +3,15 @@ Hexagon Engine
 ### Building Hexagon
 1. git clone --recurse-submodules https://github.com/Amloris/Hexagon.git
 2. add premake5.lua files to the git submodules
-3. modify GenerateProjects.batch as necessary
+3. Run Win-GenProjects.batch
+
+Win-GenProjects.batch use:
+1. Running the batch file from the explorer will build project and solution files for the latest version of Visual Studio detected on the system.
+2. Running the batch file from the command line yeilds the same results as above, but with additonal options
+    - `Scripts\Win-GenProjects        `  Automatically generates project files for the latest version of Visual Studio on the system.
+    - `Scripts\Win-GenProjects -vs2019`  Generates the project files for Visual Studio 2019 (Useful if multiple versions of VS are installed on the system).
+    - `Scripts\Win-GenProjects -?     `  Lists available arguments.
+
 
 ### Input Examples
 Polling
