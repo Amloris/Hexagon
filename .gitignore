@@ -23,3 +23,7 @@ imgui.ini
 
 #Exeption to Bin Exclusion
 !vendor/bin
+
+#Premake files copied to Submodules
+Hexagon/vendor/GLFW/premake5.lua
+Hexagon/vendor/imgui/premake5.lua
