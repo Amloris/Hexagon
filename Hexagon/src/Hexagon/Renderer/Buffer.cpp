@@ -1,7 +1,7 @@
 #include "hxpch.h"
 
-#include "Buffer.h"
-#include "Renderer.h"
+#include "Hexagon/Renderer/Buffer.h"
+#include "Hexagon/Renderer/Renderer.h"
 
 #include "Platform/OpenGL/OpenGLBuffer.h"
 

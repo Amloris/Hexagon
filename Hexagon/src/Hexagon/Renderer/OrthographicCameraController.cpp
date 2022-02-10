@@ -1,6 +1,6 @@
 #include "hxpch.h"
 
-#include "OrthographicCameraController.h"
+#include "Hexagon/Renderer/OrthographicCameraController.h"
 
 #include "Hexagon/Core/Input.h"
 #include "Hexagon/Core/KeyCodes.h"

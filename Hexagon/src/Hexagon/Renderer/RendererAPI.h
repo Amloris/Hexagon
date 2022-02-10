@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 
-#include "VertexArray.h"
+#include "Hexagon/Renderer/VertexArray.h"
 
 namespace Hexagon
 {
@@ -30,6 +30,7 @@ namespace Hexagon
 		inline static API GetAPI() { return s_API; }
 		//inline static RendererAPI SetAPI(RendererAPI renderAPI) { s_RendererAPI = renderAPI;  }  //If this is set before the renderer, and the context, and the application, then everything should choose the correct API
 
+		static Scope<RendererAPI> Create();
 	private:
 		static API s_API;
 	};

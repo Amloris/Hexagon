@@ -1,7 +1,7 @@
 #include "hxpch.h"
 
-#include "Texture.h"
-#include "Renderer.h"
+#include "Hexagon/Renderer/Renderer.h"
+#include "Hexagon/Renderer/Texture.h"
 
 #include "Platform/OpenGL/OpenGLTexture.h"
 

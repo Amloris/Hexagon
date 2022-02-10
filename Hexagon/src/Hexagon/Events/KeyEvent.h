@@ -2,12 +2,12 @@
 
 #include <sstream>
 
-#include "Event.h"
+#include "Hexagon/Events/Event.h"
 
 namespace Hexagon
 {
 
-	class HEXAGON_API KeyEvent : public Event
+	class  KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -20,7 +20,7 @@ namespace Hexagon
 		int m_KeyCode;
 	};
 
-	class HEXAGON_API	KeyPressedEvent : public KeyEvent
+	class 	KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -46,7 +46,7 @@ namespace Hexagon
 		int m_RepeatCount;
 	};
 
-	class HEXAGON_API KeyReleasedEvent : public KeyEvent
+	class  KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -62,7 +62,7 @@ namespace Hexagon
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class HEXAGON_API KeyTypedEvent : public KeyEvent
+	class  KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)

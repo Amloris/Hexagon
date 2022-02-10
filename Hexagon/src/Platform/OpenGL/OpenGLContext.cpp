@@ -1,12 +1,12 @@
 #include "hxpch.h"
 
-#include"OpenGLContext.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include"Platform/OpenGL/OpenGLContext.h"
 
-namespace Hexagon {
+namespace Hexagon 
+{
 
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)

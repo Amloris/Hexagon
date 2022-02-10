@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Hexagon/Core/Core.h"
-#include "Layer.h"
+#include "Hexagon/Core/Layer.h"
 
 #include <vector>
 
 namespace Hexagon
 {
-	class HEXAGON_API LayerStack
+	class  LayerStack
 	{
 	public:
 		LayerStack() = default;

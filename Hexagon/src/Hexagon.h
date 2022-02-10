@@ -2,6 +2,8 @@
 
 // For use by Hazel applications
 
+#include "Hexagon/Core/Core.h"
+
 #include "Hexagon/Core/Application.h"
 #include "Hexagon/Core/Layer.h"
 #include "Hexagon/Core/Log.h"

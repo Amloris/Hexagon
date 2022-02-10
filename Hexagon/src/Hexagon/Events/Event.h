@@ -37,7 +37,7 @@ namespace Hexagon {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-	class HEXAGON_API Event
+	class  Event
 	{
 	public:
 		bool m_Handled = false;       //Todo: Make a function to mark things as "Handled"

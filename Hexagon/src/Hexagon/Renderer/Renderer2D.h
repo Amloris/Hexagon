@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OrthographicCamera.h"
+#include "Hexagon/Renderer/OrthographicCamera.h"
 
 #include "Hexagon/Renderer/Texture.h"
 

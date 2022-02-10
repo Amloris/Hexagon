@@ -20,7 +20,7 @@ namespace Hexagon
 	};
 
 	// Interface representing a desktop system based on Window
-	class HEXAGON_API Window
+	class  Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;
@@ -39,7 +39,7 @@ namespace Hexagon
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps());       //If you don't specify the window parameters is uses the default
+		static Scope<Window> Create(const WindowProps& props = WindowProps());       //If you don't specify the window parameters is uses the default
 	};
 
 

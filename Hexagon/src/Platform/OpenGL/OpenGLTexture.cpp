@@ -1,8 +1,8 @@
 #include "hxpch.h"
 
-#include "stb_image.h"
+#include <stb_image.h>
 
-#include "OpenGLTexture.h"
+#include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Hexagon
 {
@@ -23,8 +23,6 @@ namespace Hexagon
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTextureParameteri(m_RendererID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
-
-
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		: m_Path(path)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Core.h"
+#include "Hexagon/Core/Core.h"
 
-#include "Window.h"
+#include "Hexagon/Core/Window.h"
 #include "Hexagon/Core/LayerStack.h"
 #include "Hexagon/Events/Event.h"
 #include "Hexagon/Events/ApplicationEvent.h"
@@ -13,11 +13,11 @@
 
 namespace Hexagon {
 
-	class HEXAGON_API Application
+	class  Application
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 

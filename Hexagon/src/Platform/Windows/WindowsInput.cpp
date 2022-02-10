@@ -1,9 +1,10 @@
 #include "hxpch.h"
 
-#include "WindowsInput.h"
+#include <GLFW/glfw3.h>
+
+#include "Platform/Windows/WindowsInput.h"
 
 #include "Hexagon/Core/Application.h"
-#include <GLFW/glfw3.h>
 
 namespace Hexagon
 {

@@ -1,10 +1,9 @@
 #include "hxpch.h"
 
-#include "Renderer.h"
-#include "Shader.h"
+#include "Hexagon/Renderer/Renderer.h"
+#include "Hexagon/Renderer/Shader.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
-
 
 namespace Hexagon {
 
@@ -13,7 +12,7 @@ namespace Hexagon {
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: HX_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
-			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(filepath);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(filepath);
 		}
 
 		HX_CORE_ASSERT(false, "Invalid RenderAPI!")
@@ -25,7 +24,7 @@ namespace Hexagon {
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: HX_CORE_ASSERT(false, "RenderAPI::None is not supported"); return nullptr;
-			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSrc);
 		}
 
 		HX_CORE_ASSERT(false, "Invalid RenderAPI!")

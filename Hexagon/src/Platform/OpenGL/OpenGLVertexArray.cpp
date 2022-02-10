@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include "OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Hexagon {
 
@@ -11,17 +11,17 @@ namespace Hexagon {
 	{
 		switch (type)
 		{
-			case Hexagon::ShaderDataType::Float:  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float2: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float3: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Float4: return GL_FLOAT;
-			case Hexagon::ShaderDataType::Mat3:	  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Mat4:	  return GL_FLOAT;
-			case Hexagon::ShaderDataType::Int:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int2:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int3:	  return GL_INT;
-			case Hexagon::ShaderDataType::Int4:	  return GL_INT;
-			case Hexagon::ShaderDataType::Bool:	  return GL_BOOL;
+			case ShaderDataType::Float:   return GL_FLOAT;
+			case ShaderDataType::Float2:  return GL_FLOAT;
+			case ShaderDataType::Float3:  return GL_FLOAT;
+			case ShaderDataType::Float4:  return GL_FLOAT;
+			case ShaderDataType::Mat3:	  return GL_FLOAT;
+			case ShaderDataType::Mat4:	  return GL_FLOAT;
+			case ShaderDataType::Int:	  return GL_INT;
+			case ShaderDataType::Int2:	  return GL_INT;
+			case ShaderDataType::Int3:	  return GL_INT;
+			case ShaderDataType::Int4:	  return GL_INT;
+			case ShaderDataType::Bool:	  return GL_BOOL;
 		}
 
 		HX_CORE_ASSERT(false, "Unknown ShaderDataType:ShaderDataTypeToOpenGLBaseType!");
@@ -64,7 +64,7 @@ namespace Hexagon {
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
-				(const void*)(intptr_t)element.Offset);
+				(const void*)element.Offset);
 			m_VertexBufferIndex++;
 		}
 

@@ -43,21 +43,6 @@
 	#error "Unknown platform!"
 #endif 
 
-// DLL Support
-#ifdef HX_PLATFORM_WINDOWS
-	#if HX_DYNAMIC_LINK
-		#ifdef HX_BUILD_DLL
-			#define HEXAGON_API __declspec(dllexport)
-		#else
-			#define HEXAGON_API __declspec(dllimport)
-		#endif
-	#else
-		#define HEXAGON_API
-	#endif
-#else
-	#error Hazel only supports Windows!
-#endif
-
 // Debugging
 #ifdef HX_DEBUG
 	#define HX_ENABLE_ASSERTS

@@ -1,8 +1,7 @@
 #include "hxpch.h"
 
-#include "Renderer.h"
-#include "Renderer2D.h"
-#include "Platform/OpenGL/OpenGLShader.h"
+#include "Hexagon/Renderer/Renderer.h"
+#include "Hexagon/Renderer/Renderer2D.h"
 
 namespace Hexagon {
 
@@ -12,6 +11,11 @@ namespace Hexagon {
 	{
 		RenderCommand::Init();
 		Renderer2D::Init();
+	}
+
+	void Renderer::Shutdown()
+	{
+		Renderer2D::Shutdown();
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -31,8 +35,8 @@ namespace Hexagon {
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
 	{
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);  // Should only be done once per material per scene, but we do it for every object right now
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);                               // Needs to be done per object
+		shader->SetMat4("u_ViewProjection", s_SceneData->ViewProjectionMatrix);  // Should only be done once per material per scene, but we do it for every object right now
+		shader->SetMat4("u_Transform", transform);                               // Needs to be done per object
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);

@@ -1,17 +1,14 @@
 #include "hxpch.h"
 
-#include "Application.h"
+#include "Hexagon/Core/Application.h"
 #include "Hexagon/Core/Log.h"
 #include "Hexagon/Renderer/Renderer.h"
-
-//#include "Input.h"
 
 // Temporary
 #include <GLFW/glfw3.h>  
 
-namespace Hexagon {
-
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+namespace Hexagon 
+{
 
 	Application* Application::s_Instance = nullptr;
 
@@ -20,13 +17,18 @@ namespace Hexagon {
 		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = Scope<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window = Window::Create();
+		m_Window->SetEventCallback(HX_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+	}
+
+	Application::~Application()
+	{
+		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
@@ -44,8 +46,8 @@ namespace Hexagon {
 		//HX_CORE_TRACE("{0}", e);  //Log all events
 
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(HX_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(HX_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )     // Handle events from the top down
 		{

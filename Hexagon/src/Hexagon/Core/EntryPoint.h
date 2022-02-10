@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Hexagon/Core/Core.h"
+
 #ifdef HX_PLATFORM_WINDOWS
 
 extern Hexagon::Application* Hexagon::CreateApplication();

@@ -1,12 +1,13 @@
 #include "hxpch.h"
 
-#include "Renderer2D.h"
-#include "RenderCommand.h"
-
-#include "VertexArray.h"
-#include "Shader.h"
-
 #include <glm/gtc/matrix_transform.hpp>
+
+#include "Hexagon/Renderer/Renderer2D.h"
+#include "Hexagon/Renderer/RenderCommand.h"
+
+#include "Hexagon/Renderer/VertexArray.h"
+#include "Hexagon/Renderer/Shader.h"
+
 
 namespace Hexagon
 {
@@ -33,8 +34,7 @@ namespace Hexagon
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 
-		Ref<VertexBuffer> SquareVertexBuffer;
-		SquareVertexBuffer = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		Ref<VertexBuffer> SquareVertexBuffer = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		SquareVertexBuffer->SetLayout({
 			{ ShaderDataType::Float3, "aPos"},
 			{ ShaderDataType::Float2, "aTexCoord"},
@@ -42,8 +42,7 @@ namespace Hexagon
 		s_Data->QuadVertexArray->AddVertexBuffer(SquareVertexBuffer);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		Ref<IndexBuffer> SquareIndexBuffer;
-		SquareIndexBuffer = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+		Ref<IndexBuffer>SquareIndexBuffer = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(SquareIndexBuffer);
 
 		s_Data->WhiteTexture = Texture2D::Create(1, 1);

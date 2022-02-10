@@ -5,7 +5,7 @@
 namespace Hexagon
 {
 
-	class HEXAGON_API Input
+	class  Input
 	{
 	protected: 
 		Input() = default;

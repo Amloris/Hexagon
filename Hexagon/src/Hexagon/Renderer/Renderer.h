@@ -1,16 +1,18 @@
 #pragma once
 
-#include "RenderCommand.h"
+#include "Hexagon/Renderer/RenderCommand.h"
 
-#include "Shader.h"
-#include "OrthographicCamera.h"
+#include "Hexagon/Renderer/Shader.h"
+#include "Hexagon/Renderer/OrthographicCamera.h"
 
 namespace Hexagon {
 
 	class Renderer
 	{
 	public:
-		static void Init(); 
+		static void Init();
+		static void Shutdown();
+
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(OrthographicCamera& camera); // ToDo: Scene parameters
