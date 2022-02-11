@@ -3,7 +3,7 @@ pushd %~dp0\..\
 
 
 :: Copy Premake files to submodules
-call Scripts\Win-CpPremakeFiles.bat
+call Scripts\Premake\Win-CpPremakeFiles.bat
 
 IF "%~1"=="" GOTO endparse
 IF "%~1"=="-vs2019" (
