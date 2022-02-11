@@ -2,6 +2,7 @@
 	path = Hexagon/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
 	branch = master
+	ignore = dirty
 [submodule "Hexagon/vendor/glm"]
 	path = Hexagon/vendor/glm
 	url = https://github.com/g-truc/glm.git
@@ -10,6 +11,7 @@
 	path = Hexagon/vendor/imgui
 	url = https://github.com/TheCherno/imgui.git
 	branch = docking
+	ignore = dirty
 [submodule "Hexagon/vendor/spdlog"]
 	path = Hexagon/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
