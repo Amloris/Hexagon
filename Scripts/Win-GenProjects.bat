@@ -1,6 +1,10 @@
 @echo off
 pushd %~dp0\..\
 
+
+:: Copy Premake files to submodules
+call Scripts\Win-CpPremakeFiles.bat
+
 IF "%~1"=="" GOTO endparse
 IF "%~1"=="-vs2019" (
     echo Version Selected: vs2019 
