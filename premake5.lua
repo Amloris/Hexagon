@@ -28,7 +28,6 @@ group "Dependencies"
 	include "Hexagon/vendor/GLFW"  -- Adds the GLFW premake file so that we can have GLFW as a project
 	include "Hexagon/vendor/Glad"
 	include "Hexagon/vendor/imgui"
-	--include "Hexagon/vendor/glm"
 group ""
 
 project "Hexagon"
@@ -115,7 +114,7 @@ project "Sandbox"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		"imgui.ini"
+		--"imgui.ini"
 	}
 
 	includedirs
