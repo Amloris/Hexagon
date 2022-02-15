@@ -16,7 +16,6 @@ namespace Hexagon
 
 		virtual void OnAttach()      override;
 		virtual void OnDetach()	     override;
-		virtual void OnImguiRender() override;
 
 		void Begin();
 		void End();
