@@ -2,8 +2,9 @@ Hexagon Engine
 ====
 ### Building Hexagon
 1. git clone --recurse-submodules https://github.com/Amloris/Hexagon.git
-2. add premake5.lua files to the git submodules
-3. Run Win-GenProjects.batch
+2. Run Win-GenProjects.batch
+3. Load solution file into IDE (Visual Studio typically)
+4. Compile and run the project!
 
 Win-GenProjects.batch use:
 1. Running the batch file from the explorer will build project and solution files for the latest version of Visual Studio detected on the system.
