@@ -6,6 +6,8 @@
 #include "Hexagon/Events/KeyEvent.h"
 #include "Hexagon/Events/MouseEvent.h"
 
+#include "Hexagon/Renderer/Renderer.h"
+
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Hexagon
@@ -57,6 +59,12 @@ namespace Hexagon
 
 		{
 			HX_PROFILE_SCOPE("glfwCreateWindow - WindowsWindow::Init");
+
+			#if defined(HX_DEBUG)
+				if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+					glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+			#endif
+
 			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 			++s_GLFWWindowCount;
 		}

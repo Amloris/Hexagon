@@ -11,6 +11,8 @@
 
 #include "Hexagon/ImGui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace Hexagon {
 
 	class  Application
@@ -18,8 +20,6 @@ namespace Hexagon {
 	public:
 		Application();
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -31,6 +31,7 @@ namespace Hexagon {
 		inline static Application& Get() { return *s_Instance; }
 
 	private:
+		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 	private:
@@ -43,6 +44,7 @@ namespace Hexagon {
 
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	// To be defined in CLIENT	

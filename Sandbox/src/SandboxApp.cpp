@@ -3,8 +3,8 @@
 
 #include <imgui/imgui.h>
 
-#include <glm/gtc/matrix_transform.hpp>   // Temporary
-#include <glm/gtc/type_ptr.hpp>
+//#include <glm/gtc/matrix_transform.hpp>   // Temporary
+//#include <glm/gtc/type_ptr.hpp>
 
 #include "ExampleLayer.h"
 #include "Sandbox2D.h"

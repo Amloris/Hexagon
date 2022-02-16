@@ -111,7 +111,7 @@ namespace Hexagon
             long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
             long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
-            uint32_t threadID = std::hash<std::thread::id>{}(std::this_thread::get_id());
+            uint32_t threadID = (uint32_t)std::hash<std::thread::id>{}(std::this_thread::get_id());
             Instrumentor::Get().WriteProfile({ m_Name, start, end, threadID });
 
             m_Stopped = true;
@@ -125,10 +125,31 @@ namespace Hexagon
 
 #define HX_PROFILE 1
 #if HX_PROFILE
+    // Resolve which function signature macro will be used. Note that this only
+    // is resolved when the (pre)compiler starts, so the syntax highlighting
+    // could mark the wrong one in your editor!
+    #if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
+        #define HZ_FUNC_SIG __PRETTY_FUNCTION__
+    #elif defined(__DMC__) && (__DMC__ >= 0x810)
+        #define HZ_FUNC_SIG __PRETTY_FUNCTION__
+    #elif defined(__FUNCSIG__)
+        #define HZ_FUNC_SIG __FUNCSIG__
+    #elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
+        #define HZ_FUNC_SIG __FUNCTION__
+    #elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
+        #define HZ_FUNC_SIG __FUNC__
+    #elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901)
+        #define HZ_FUNC_SIG __func__
+    #elif defined(__cplusplus) && (__cplusplus >= 201103)
+        #define HZ_FUNC_SIG __func__
+    #else
+        #define HZ_FUNC_SIG "HZ_FUNC_SIG unknown!"
+    #endif
+
     #define HX_PROFILE_BEGIN_SESSION(name, filepath) ::Hexagon::Instrumentor::Get().BeginSession(name, filepath)
     #define HX_PROFILE_END_SESSION() ::Hexagon::Instrumentor::Get().EndSession()
     #define HX_PROFILE_SCOPE(name)  ::Hexagon::InstrumentationTimer timer##__LINE__(name)
-    #define HX_PROFILE_FUNCTION() HX_PROFILE_SCOPE(__FUNCSIG__)
+    #define HX_PROFILE_FUNCTION() HX_PROFILE_SCOPE(HZ_FUNC_SIG)
 #else
     #define HX_PROFILE_BEGIN_SESSION(name, filepath)
     #define HX_PROFILE_END_SESSION()
