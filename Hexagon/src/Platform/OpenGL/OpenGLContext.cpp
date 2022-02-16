@@ -16,6 +16,8 @@ namespace Hexagon
 
 	void OpenGLContext::Init()
 	{
+		HX_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		HX_CORE_ASSERT(status, "Failed to initialize Glad!");
@@ -39,6 +41,8 @@ namespace Hexagon
 
 	void OpenGLContext::SwapBuffers()
 	{
+		HX_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 

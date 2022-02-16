@@ -9,6 +9,8 @@ namespace Hexagon {
 
 	void Renderer::Init()
 	{
+		HX_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

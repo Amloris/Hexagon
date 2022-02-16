@@ -12,13 +12,15 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	HX_PROFILE_FUNCTION();
+
 	//m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard.png");
 	m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
 }
 
 void Sandbox2D::OnDetach()
 {
-
+	HX_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(Hexagon::Timestep timestep)
@@ -27,10 +29,8 @@ void Sandbox2D::OnUpdate(Hexagon::Timestep timestep)
 
 	// Update
 	// -------------------------------------------------------------------------
-	{
-		HX_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(timestep);
-	}
+	m_CameraController.OnUpdate(timestep);
+
 	// Render Commands
 	// -------------------------------------------------------------------------
 	{

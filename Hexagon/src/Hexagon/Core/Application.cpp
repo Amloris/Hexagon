@@ -14,6 +14,8 @@ namespace Hexagon
 
 	Application::Application()
 	{
+		HX_PROFILE_FUNCTION();
+
 		HX_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -28,21 +30,31 @@ namespace Hexagon
 
 	Application::~Application()
 	{
+		HX_PROFILE_FUNCTION();
+
 		Renderer::Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		HX_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		HX_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		HX_PROFILE_FUNCTION();
+
 		//HX_CORE_TRACE("{0}", e);  //Log all events
 
 		EventDispatcher dispatcher(e);
@@ -59,8 +71,12 @@ namespace Hexagon
 
 	void Application::Run()
 	{
+		HX_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			HX_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime();  // TODO: put in Platform::GetTime 
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
@@ -69,15 +85,21 @@ namespace Hexagon
 			// -------------------------------------------------------------------------
 			if (!m_Minimized)
 			{
+				HX_PROFILE_SCOPE("Application::Run - LayerStack OnUpdates");
+
 				for (Layer* layer : m_LayerStack)
 					layer->OnUpdate(timestep);
 			}
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack) {
-				layer->OnImguiRender();
+			{
+				HX_PROFILE_SCOPE("Application::Run - ImGui LayerStack Updates");
+
+				m_ImGuiLayer->Begin();
+				for (Layer* layer : m_LayerStack) {
+					layer->OnImguiRender();
+				}
+				m_ImGuiLayer->End();
 			}
-			m_ImGuiLayer->End();
 
 			// Windows
 			// -------------------------------------------------------------------------
@@ -88,23 +110,24 @@ namespace Hexagon
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
+		HX_PROFILE_FUNCTION();
+
 		m_Running = false;
 		return true;
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
-		//HX_CORE_WARN("{0}, {1}", e.GetWidth(), e.GetHeight());
+		HX_PROFILE_FUNCTION();
 
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;
 			return false;
 		}
+		m_Minimized = false;
 
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
-
-		m_Minimized = false;
 
 		return false;
 	}

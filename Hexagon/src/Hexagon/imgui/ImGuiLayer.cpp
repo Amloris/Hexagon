@@ -19,6 +19,8 @@ namespace Hexagon
 
 	void ImGuiLayer::OnAttach()
 	{
+		HX_PROFILE_FUNCTION();
+
 		// Setup ImGui Context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -52,6 +54,8 @@ namespace Hexagon
 
 	void ImGuiLayer::OnDetach()
 	{
+		HX_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -59,6 +63,8 @@ namespace Hexagon
 
 	void ImGuiLayer::Begin()
 	{
+		HX_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -66,6 +72,8 @@ namespace Hexagon
 
 	void ImGuiLayer::End()
 	{
+		HX_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());

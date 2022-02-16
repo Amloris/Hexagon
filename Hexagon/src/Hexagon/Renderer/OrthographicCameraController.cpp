@@ -19,6 +19,8 @@ namespace Hexagon
 
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
 	{
+		HX_PROFILE_FUNCTION();
+
 		// Camera Control
 		float distanceStep = m_CameraTranslationSpeed * timestep;
 		if (Input::IsKeyPressed(HX_KEY_A)) {
@@ -58,6 +60,8 @@ namespace Hexagon
 	
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
+		HX_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MouseScrolledEvent>(HX_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolledEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(HX_BIND_EVENT_FN(OrthographicCameraController::OnWindowResizeEvent));
@@ -65,6 +69,8 @@ namespace Hexagon
 
 	bool OrthographicCameraController::OnMouseScrolledEvent(MouseScrolledEvent& event)
 	{
+		HX_PROFILE_FUNCTION();
+
 		float yPos = event.GetOffsetY();
 		m_ZoomLevel -= yPos;
 
@@ -76,6 +82,8 @@ namespace Hexagon
 
 	bool OrthographicCameraController::OnWindowResizeEvent(WindowResizeEvent& event)
 	{
+		HX_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
