@@ -114,7 +114,6 @@ project "Sandbox"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
-		--"imgui.ini"
 	}
 
 	includedirs

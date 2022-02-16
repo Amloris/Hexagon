@@ -15,6 +15,7 @@
 #include <unordered_set>
 
 #include "Hexagon/Core/Log.h"
+#include "Hexagon/Debug/Instrumentor.h"
 
 #ifdef HX_PLATFORM_WINDOWS
 	#include <Windows.h>
