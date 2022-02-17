@@ -60,7 +60,7 @@ namespace Hexagon
 		{
 			HX_PROFILE_SCOPE("glfwCreateWindow - WindowsWindow::Init");
 
-			#if defined(HX_DEBUG)
+			#if defined(HX_DEBUG_BUILD)
 				if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
 					glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 			#endif

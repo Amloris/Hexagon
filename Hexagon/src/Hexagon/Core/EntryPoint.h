@@ -9,7 +9,7 @@ extern Hexagon::Application* Hexagon::CreateApplication();
 int main(int argc, char** argv)
 {
 	Hexagon::Log::Init();
-	HX_CORE_WARN("Initialized Log!");                   //Equivalent to Hexagon::Log::GetCoreLogger()->warn("Initialized Log!");
+	HX_CORE_WARN("Initialized Log!");
 
 	HX_PROFILE_BEGIN_SESSION("Startup", "HexagonProfile-Startup.json");
 	auto app = Hexagon::CreateApplication();

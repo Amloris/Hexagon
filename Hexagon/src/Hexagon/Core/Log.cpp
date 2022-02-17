@@ -5,6 +5,7 @@
 #include "Hexagon/Core/Log.h"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/sinks/basic_file_sink.h>
 
 namespace Hexagon
 {
@@ -14,13 +15,22 @@ namespace Hexagon
 
 	void Log::Init()
 	{
-		spdlog::set_pattern("%^[%Y-%m-%d %T.%e] %n: %v%$");      // Sets color, timestamp, logger name, and then logger message
+		std::vector<spdlog::sink_ptr> logSinks;
+		logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
+		logSinks.emplace_back(std::make_shared <spdlog::sinks::basic_file_sink_mt>("Hexagon.log", true));
 
-		s_CoreLogger = spdlog::stdout_color_mt("HEXAGON");
-		s_CoreLogger->set_level(spdlog::level::trace);           // Todo: Expose log level
+		logSinks[0]->set_pattern("%^[%T.%e] %-8!l %n: %v%$");   // Console
+		logSinks[1]->set_pattern("[%Y-%m-%d %T.%e] %-8!l %n: %v%$");   // File
 
-		s_ClientLogger = spdlog::stdout_color_mt("APP");
+		s_CoreLogger = std::make_shared<spdlog::logger>("HEXAGON", begin(logSinks), end(logSinks));
+		spdlog::register_logger(s_CoreLogger);
+		s_CoreLogger->set_level(spdlog::level::trace);
+		s_CoreLogger->flush_on(spdlog::level::trace);
+		
+		s_ClientLogger = std::make_shared<spdlog::logger>("APP", begin(logSinks), end(logSinks));
+		spdlog::register_logger(s_ClientLogger);
 		s_ClientLogger->set_level(spdlog::level::trace);
+		s_ClientLogger->flush_on(spdlog::level::trace);
 	}
 
 }

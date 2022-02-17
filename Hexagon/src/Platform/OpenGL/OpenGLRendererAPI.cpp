@@ -31,7 +31,7 @@ namespace Hexagon
 	{
 		HX_PROFILE_FUNCTION();
 
-		#ifdef HX_DEBUG
+		#ifdef HX_DEBUG_BUILD
 				glEnable(GL_DEBUG_OUTPUT);
 				glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 				glDebugMessageCallback(OpenGLMessageCallback, nullptr);

@@ -86,17 +86,17 @@ project "Hexagon"
 		}
 
 	filter "configurations:Debug"
-		defines "HX_DEBUG"
+		defines "HX_DEBUG_BUILD"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HX_RELEASE"
+		defines "HX_RELEASE_BUILD"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "HX_DIST"
+		defines "HX_DIST_BUILD"
 		runtime "Release"
 		optimize "on"
 
@@ -138,16 +138,16 @@ project "Sandbox"
 		}
 
 	filter "configurations:Debug"
-		defines "HX_DEBUG"
+		defines "HX_DEBUG_BUILD"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "HX_RELEASE"
+		defines "HX_RELEASE_BUILD"
 		runtime "Release"
 		optimize "on"
 
 	filter "configurations:Dist"
-		defines "HX_DIST"
+		defines "HX_DIST_BUILD"
 		runtime "Release"
 		optimize "on"

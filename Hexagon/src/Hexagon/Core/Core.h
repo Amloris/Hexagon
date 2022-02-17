@@ -44,7 +44,7 @@
 #endif 
 
 // Debugging
-#ifdef HX_DEBUG
+#ifdef HX_DEBUG_BUILD
 	#define HX_ENABLE_ASSERTS
 #endif
 

@@ -12,17 +12,17 @@
 # Visual Studio 2017/2019 cache/options directory
 .vs/
 
-#ImGui
-imgui.ini
-
-# Files 
+# Project/Solution Files 
 *.vcxproj
 *.vcxproj.user
 *.vcxproj.filters
 *.sln
 
 #Exeption to Bin Exclusion
-!vendor/bin
+!vendor/bin/premake
 
-#Logging
+#Hexagon Files
 *.json
+*.log
+imgui.ini
+
