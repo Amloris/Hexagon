@@ -4,7 +4,7 @@
 
 #include "Hexagon/Core/Input.h"
 #include "Hexagon/Core/KeyCodes.h"
-#include "Hexagon/Core/MouseButtonCodes.h"
+#include "Hexagon/Core/MouseCodes.h"
 #include "Hexagon/Events/KeyEvent.h"
 
 namespace Hexagon
@@ -23,28 +23,28 @@ namespace Hexagon
 
 		// Camera Control
 		float distanceStep = m_CameraTranslationSpeed * timestep;
-		if (Input::IsKeyPressed(HX_KEY_A)) {
+		if (Input::IsKeyPressed(Key::A)) {
 			m_CameraPosition.x -=  cos(glm::radians(m_CameraRotation)) * distanceStep;
 			m_CameraPosition.y -=  sin(glm::radians(m_CameraRotation)) * distanceStep;
 		}
-		if (Input::IsKeyPressed(HX_KEY_D)) {
+		if (Input::IsKeyPressed(Key::D)) {
 			m_CameraPosition.x +=  cos(glm::radians(m_CameraRotation)) * distanceStep;
 			m_CameraPosition.y +=  sin(glm::radians(m_CameraRotation)) * distanceStep;
 		}
-		if (Input::IsKeyPressed(HX_KEY_W)) {
+		if (Input::IsKeyPressed(Key::W)) {
 			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * distanceStep;
 			m_CameraPosition.y +=  cos(glm::radians(m_CameraRotation)) * distanceStep;
 		}
-		if (Input::IsKeyPressed(HX_KEY_S)) {
+		if (Input::IsKeyPressed(Key::S)) {
 			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * distanceStep;
 			m_CameraPosition.y -=  cos(glm::radians(m_CameraRotation)) * distanceStep;
 		}
 
 		if (m_AllowRotation)
 		{
-			if (Input::IsKeyPressed(HX_KEY_Q))
+			if (Input::IsKeyPressed(Key::Q))
 				m_CameraRotation += m_CameraRotationSpeed * timestep;
-			if (Input::IsKeyPressed(HX_KEY_E))
+			if (Input::IsKeyPressed(Key::E))
 				m_CameraRotation -= m_CameraRotationSpeed * timestep;
 
 			if (m_CameraRotation > 180.0f)

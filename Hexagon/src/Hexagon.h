@@ -15,7 +15,7 @@
 //  -----Input-----------------------------
 #include "Hexagon/Core/Input.h"
 #include "Hexagon/Core/KeyCodes.h"
-#include "Hexagon/Core/MouseButtonCodes.h"
+#include "Hexagon/Core/MouseCodes.h"
 
 #include "Hexagon/Renderer/OrthographicCameraController.h"
 

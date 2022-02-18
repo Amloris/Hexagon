@@ -1,7 +1,6 @@
 #pragma once
 
-#include <sstream>
-
+#include "Hexagon/Core/Input.h"
 #include "Hexagon/Events/Event.h"
 
 namespace Hexagon
@@ -58,21 +57,21 @@ namespace Hexagon
 	class  MouseButtonEvent : public Event
 	{
 	public:
-		inline int GetMouseButton() const { return m_Button; }
+		inline MouseCode GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryMouseButton | EventCategoryInput)
 	protected:
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MouseCode button)
 			: m_Button(button) {}
 
-		int m_Button;
+		MouseCode m_Button;
 	};
 
 
 	class 	MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MouseCode button)
 			: MouseButtonEvent(button){}
 
 		std::string ToString() const override
@@ -89,7 +88,7 @@ namespace Hexagon
 	class 	MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MouseCode button)
 			:MouseButtonEvent(button) {}
 
 		std::string ToString() const override
