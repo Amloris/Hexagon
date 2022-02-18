@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <format>   // Testing
 #include <fstream>
 #include <iomanip>
 #include <string>
@@ -77,14 +78,11 @@ namespace Hexagon
         {
             std::stringstream json;
 
-            std::string name = result.Name;
-            std::replace(name.begin(), name.end(), '"', '\'');
-
             json << std::setprecision(3) << std::fixed;
             json << ",{";
             json << "\"cat\":\"function\",";
             json << "\"dur\":" << (result.ElapsedTime.count()) << ',';
-            json << "\"name\":\"" << name << "\",";
+            json << "\"name\":\"" << result.Name << "\",";
             json << "\"ph\":\"X\",";
             json << "\"pid\":0,";
             json << "\"tid\":" << result.ThreadID << ",";
@@ -164,6 +162,35 @@ namespace Hexagon
         std::chrono::time_point<std::chrono::steady_clock> m_StartTimepoint;
         bool m_Stopped;
     };
+
+    namespace InstrumentorUtils {
+
+        template <size_t N>
+        struct ChangeResult
+        {
+            char Data[N];
+        };
+
+        template <size_t N, size_t K>
+        constexpr auto CleanupOutputString(const char(&expr)[N], const char(&remove)[K])
+        {
+            ChangeResult<N> result = {};
+
+            size_t srcIndex = 0;
+            size_t dstIndex = 0;
+            while (srcIndex < N)
+            {
+                size_t matchIndex = 0;
+                while (matchIndex < K - 1 && srcIndex + matchIndex < N - 1 && expr[srcIndex + matchIndex] == remove[matchIndex])
+                    matchIndex++;
+                if (matchIndex == K - 1)
+                    srcIndex += matchIndex;
+                result.Data[dstIndex++] = expr[srcIndex] == '"' ? '\'' : expr[srcIndex];
+                srcIndex++;
+            }
+            return result;
+        }
+    }
 }
 
 #define HX_PROFILE 1
@@ -191,9 +218,18 @@ namespace Hexagon
 
     #define HX_PROFILE_BEGIN_SESSION(name, filepath) ::Hexagon::Instrumentor::Get().BeginSession(name, filepath)
     #define HX_PROFILE_END_SESSION() ::Hexagon::Instrumentor::Get().EndSession()
-    #define HX_PROFILE_SCOPE(name)  ::Hexagon::InstrumentationTimer timer##__LINE__(name)
+
+    #define HX_PROFILE_SCOPE_FORMATTED(name, ...)  std::string nameTemp = std::format(name, __VA_ARGS__);\
+                                                   ::Hexagon::InstrumentationTimer timer2##__LINE__(const_cast<char*>(nameTemp.c_str()))
+    
+    #define HX_PROFILE_SCOPE(name) constexpr auto fixedName = ::Hexagon::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+	                               ::Hexagon::InstrumentationTimer timer##__LINE__(fixedName.Data)
     #define HX_PROFILE_FUNCTION() HX_PROFILE_SCOPE(HZ_FUNC_SIG)
-#else
+
+
+
+
+    #else
     #define HX_PROFILE_BEGIN_SESSION(name, filepath)
     #define HX_PROFILE_END_SESSION()
     #define HX_PROFILE_SCOPE(name)

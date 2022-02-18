@@ -35,8 +35,14 @@ namespace Hexagon
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = nullptr;
 		{
-			HX_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
-			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+			{
+				HX_PROFILE_SCOPE("stbi_info - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+				stbi_info(path.c_str(), &width, &height, &channels);
+			}
+			{
+				HX_PROFILE_SCOPE_FORMATTED("stbi_load({0},{1}) - OpenGLTexture2D::OpenGLTexture2D(const std::string&)", width, height);
+				data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+			}
 		}
 		HX_CORE_ASSERT(data, "Failed to load image!");
 
