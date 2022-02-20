@@ -14,8 +14,8 @@ void Sandbox2D::OnAttach()
 {
 	HX_PROFILE_FUNCTION();
 
-	m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard.png");
-	//m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
+	//m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_Texture = Hexagon::Texture2D::Create("assets/textures/Checkerboard_UV.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -43,10 +43,10 @@ void Sandbox2D::OnUpdate(Hexagon::Timestep timestep)
 	{
 		HX_PROFILE_SCOPE("Renderer Draw");
 		Hexagon::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Hexagon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f, { 0.5f, 0.5f, 1.0f, 0.9f });
 		Hexagon::Renderer2D::DrawQuad({ -0.5f, -0.2f }, { 1.5f, 1.0f }, m_SquareColor);
 		Hexagon::Renderer2D::DrawQuad({ 0.5f, 0.5f, 0.1f }, { 1.0f, 1.5f }, { 0.2f, 0.8f, 0.3f, 0.8f });
-		Hexagon::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, m_Texture, 10.0f, { 0.5f, 0.5f, 1.0f, 0.9f });
-		Hexagon::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.5f }, glm::radians(45.0f), { 0.2f, 0.8f, 0.3f, 0.8f });
+		Hexagon::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.2f }, { 1.0f, 1.5f }, glm::radians(45.0f), { 0.2f, 0.8f, 0.3f, 0.8f });
 		Hexagon::Renderer2D::EndScene();
 	}
 

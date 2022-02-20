@@ -13,6 +13,10 @@ Win-GenProjects.batch use:
     - `Scripts\Win-GenProjects -vs2019`  Generates the project files for Visual Studio 2019 (Useful if multiple versions of VS are installed on the system).
     - `Scripts\Win-GenProjects -?     `  Lists available arguments.
 
+### Acknowledgement
+------------
+This engine is heavily inspired by the [Hazel Engine](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT&index=2) .  Yan Chernikov has been an incredible asset to my understanding of C++; without him, this work would not be possible. 
+
 
 ### Input Examples
 Polling

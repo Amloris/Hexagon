@@ -18,16 +18,18 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to the root folder (solution directory)
 IncludeDir = {}
-IncludeDir["GLFW"]  = "Hexagon/vendor/GLFW/include"
 IncludeDir["Glad"]  = "Hexagon/vendor/Glad/include"
-IncludeDir["ImGui"] = "Hexagon/vendor/imgui"
+IncludeDir["GLFW"]  = "Hexagon/vendor/GLFW/include"
 IncludeDir["glm"]   = "Hexagon/vendor/glm"
+IncludeDir["ImGui"] = "Hexagon/vendor/imgui"
+IncludeDir["spdlog"]  = "Hexagon/vendor/spdlog/include"
 IncludeDir["stb_image"] = "Hexagon/vendor/stb_image"
 
 group "Dependencies"
 	include "Hexagon/vendor/GLFW"  -- Adds the GLFW premake file so that we can have GLFW as a project
 	include "Hexagon/vendor/Glad"
 	include "Hexagon/vendor/imgui"
+	include "Hexagon/vendor/spdlog"
 group ""
 
 project "Hexagon"
@@ -61,11 +63,11 @@ project "Hexagon"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.stb_image}"
 	}
 
@@ -74,6 +76,7 @@ project "Hexagon"
 		"GLFW",
 		"Glad",
 		"imgui",
+		"spdlog",
 		"opengl32.lib"
 	}
 
@@ -118,24 +121,19 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Hexagon/vendor/spdlog/include",
 		"Hexagon/src",
+		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
 		"Hexagon/vendor"   --Include Imgui
 	}
 
 	links
 	{
-		"Hexagon"
+		"Hexagon",
 	}
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-			--"HX_PLATFORM_WINDOWS",
-		}
 
 	filter "configurations:Debug"
 		defines "HX_DEBUG_BUILD"

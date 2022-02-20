@@ -193,7 +193,7 @@ namespace Hexagon
     }
 }
 
-#define HX_PROFILE 1
+#define HX_PROFILE 0
 #if HX_PROFILE
     // Resolve which function signature macro will be used. Note that this only
     // is resolved when the (pre)compiler starts, so the syntax highlighting
@@ -226,12 +226,10 @@ namespace Hexagon
 	                               ::Hexagon::InstrumentationTimer timer##__LINE__(fixedName.Data)
     #define HX_PROFILE_FUNCTION() HX_PROFILE_SCOPE(HZ_FUNC_SIG)
 
-
-
-
     #else
     #define HX_PROFILE_BEGIN_SESSION(name, filepath)
     #define HX_PROFILE_END_SESSION()
+    #define HX_PROFILE_SCOPE_FORMATTED(name, ...)
     #define HX_PROFILE_SCOPE(name)
     #define HX_PROFILE_FUNCTION()
 #endif
