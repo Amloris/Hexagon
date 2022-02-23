@@ -9,6 +9,8 @@
 #include "ExampleLayer.h"
 #include "Sandbox2D.h"
 
+//#include "resource.h"
+
 
 class TestLayer : public Hexagon::Layer
 {

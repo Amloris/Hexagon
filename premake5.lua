@@ -134,6 +134,17 @@ project "Sandbox"
 
 	filter "system:windows"
 		systemversion "latest"
+		files 
+		{ 
+			"%{prj.name}/src/Sandbox.rc",
+			"%{prj.name}/res/Hexagon.ico",
+		}
+
+		vpaths 
+		{ 
+			['Resources'] = { '**Sandbox.rc', '**Sandbox.aps', '**resource.h', '**Hexagon.ico' }
+		}
+
 
 	filter "configurations:Debug"
 		defines "HX_DEBUG_BUILD"
