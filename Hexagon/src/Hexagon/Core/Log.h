@@ -16,8 +16,7 @@ namespace Hexagon
 		inline static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 	private:
 		static Ref<spdlog::logger> s_CoreLogger;
-		static Ref<spdlog::logger> s_ClientLogger;
-		
+		static Ref<spdlog::logger> s_ClientLogger;	
 	};
 	
 }
@@ -32,7 +31,7 @@ namespace Hexagon
 
 // Client log macros
 #define HX_TRACE(...)         ::Hexagon::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define HX_DEBUG(...)         ::Hexagon::Log::GetClientLogger()->debug(__VA_ARGS__)   //Conflicts with build system macro with same name
+#define HX_DEBUG(...)         ::Hexagon::Log::GetClientLogger()->debug(__VA_ARGS__)
 #define HX_INFO(...)          ::Hexagon::Log::GetClientLogger()->info(__VA_ARGS__)
 #define HX_WARN(...)          ::Hexagon::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define HX_ERROR(...)         ::Hexagon::Log::GetClientLogger()->error(__VA_ARGS__)

@@ -6,7 +6,6 @@
 #include "Hexagon/Core/Timestep.h"
 #include "Hexagon/Events/Event.h"
 
-
 namespace Hexagon
 {
 	class  Layer
